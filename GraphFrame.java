@@ -12,39 +12,36 @@ import java.util.ArrayList;
  */
 public class GraphFrame extends JFrame
 {
-	public static ArrayList<Double> XArray;
-	public static ArrayList<Double> YArray;
-
-	public GraphFrame()
-	{
-		initUI();
-	}
-
-	private void initUI()
-	{
-		GraphPanel gpnl = new GraphPanel(XArray, YArray);
-		add(gpnl);
-
-		setSize(800, 800);
-		setTitle("Lines");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
 
 	public static void main(String arg[])
 	{
-		XArray.add(100.0);
-		XArray.add(200.0);
-		XArray.add(300.0);
-		XArray.add(400.0);
+		ArrayList<Double> XArray = new ArrayList<Double>();
+		ArrayList<Double> YArray = new ArrayList<Double>();
 
-		YArray.add(100.0);
-		YArray.add(200.0);
-		YArray.add(300.0);
-		YArray.add(400.0);
+		XArray.add(100.0);            		YArray.add(100.0);
+		XArray.add(150.0);                  YArray.add(200.0);
+		XArray.add(300.0);             		YArray.add(300.0);
+		XArray.add(400.0);            		YArray.add(400.0);
 
 
-		GraphFrame ex = new GraphFrame();
+
+		System.out.println(XArray.toString());
+		System.out.println(YArray.toString());
+
+
+		GraphFrame ex = new GraphFrame(XArray, YArray);
+		ex.setSize(800, 800);
+		ex.setTitle("Lines");
+		ex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ex.setVisible(true);
 	}
+
+	public GraphFrame(ArrayList<Double> XArray, ArrayList<Double> YArray)
+	{
+		GraphPanel gpnl = new GraphPanel(XArray, YArray);
+		this.add(gpnl);
+	}
+
+
+
 }
