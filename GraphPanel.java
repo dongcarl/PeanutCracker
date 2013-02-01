@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Time: 2:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GraphDisplay extends JPanel
+public class GraphPanel extends JPanel
 {
 
 	public static ArrayList<Point2D.Double> GraphArray;
@@ -34,7 +34,7 @@ public class GraphDisplay extends JPanel
 		}
 	}
 
-	public GraphDisplay(ArrayList Input)
+	public GraphPanel(ArrayList Input)
 	{
 		GraphArray = Input;
 	}
