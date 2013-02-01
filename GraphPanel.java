@@ -14,30 +14,45 @@ import java.util.ArrayList;
  */
 public class GraphPanel extends JPanel
 {
+	public static ArrayList<Double> XArray;
+	public static ArrayList<Double> YArray;
 
-	public static ArrayList<Point2D.Double> GraphArray;
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		for (int i = 0; i<GraphArray.size()-1; i++)
+		for (int i = 0; i<XArray.size()-1; i++)
 		{
-			int x1 = (int)(GraphArray.get(i).x);
-			int y1 = (int)(GraphArray.get(i).y);
+			int x1 = (XArray.get(i)).intValue();
+			int y1 = (YArray.get(i)).intValue();
 
-			int x2 = (int)(GraphArray.get(i+1).x);
-			int y2 = (int)(GraphArray.get(i+1).y);
+			int x2 = (XArray.get(i+1)).intValue();
+			int y2 = (YArray.get(i+1)).intValue();
 
 			g2d.drawLine(x1, y1, x2, y2);
 		}
 	}
 
-	public GraphPanel(ArrayList Input)
+	public GraphPanel(ArrayList X, ArrayList Y)
 	{
-		GraphArray = Input;
+		super();
+		/*
+		Checks if the ArrayLists of X and Y are the same size
+		if it is, set the XArray and YArray to X and Y
+		if not, prints out the message.
+		*/
+
+		if (X.size()!=Y.size())
+		{
+			System.out.println("Number of X's and Y's not the same!");
+		}
+
+		else
+		{
+			XArray = X;
+			YArray = Y;
+		}
 	}
-
-
 }
