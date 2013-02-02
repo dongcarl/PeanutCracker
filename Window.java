@@ -48,7 +48,7 @@ public class Window
 			yres = res;
 		}
 	}
-	public double getXmin() 
+	public static double getXmin()
 	{
 		return xmin;
 	}
@@ -64,7 +64,7 @@ public class Window
 	{
 		this.xres = xres;
 	}
-	public double getYmin() 
+	public static double getYmin()
 	{
 		return ymin;
 	}
@@ -72,7 +72,7 @@ public class Window
 	{
 		this.ymin = ymin;
 	}
-	public double getYmax() 
+	public static double getYmax()
 	{
 		return ymax;
 	}
@@ -88,7 +88,7 @@ public class Window
 	{
 		this.yres = yres;
 	}
-	public double getXmax() 
+	public static double getXmax()
 	{
 		return xmax;
 	}
