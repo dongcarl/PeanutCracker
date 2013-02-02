@@ -2,11 +2,11 @@ package PeanutCracker;
 
 public class Window 
 {
-	double xmin;
-	double xmax;
+	static double xmin;
+	static double xmax;
 	double xres = 1;
-	double ymin;
-	double ymax;
+	static double ymin;
+	static double ymax;
 	double yres = 1;
 	public Window()
 	{

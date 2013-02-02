@@ -1,5 +1,7 @@
 package PeanutCracker;
 
+import com.sun.org.apache.xerces.internal.impl.dtd.XMLEntityDecl;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,11 +21,10 @@ public class FieldPanel extends JPanel
 	public static ArrayList<Double> XArray;
 	public static ArrayList<Double> YArray;
 	public static ArrayList<Double> MArray;
-	public static int numY;
-	public static int numX;
+	public static int numY = 0;
+	public static int numX = 0;
 	public static double deltaY;
 	public static double deltaX;
-
 
 	public void paintComponent(Graphics g)
 	{
@@ -34,54 +35,72 @@ public class FieldPanel extends JPanel
 		for (int i = 0; i<XArray.size()-1; i++)
 		{
 
-			double x = XArray.get(i);
-			double y = YArray.get(i);
-			double m = MArray.get(i);
+			double X = XArray.get(i);
+			double Y = YArray.get(i);
+			double M = MArray.get(i);
 
 			double maxX = deltaX/((double)numX);
 			double maxY = deltaY/((double)numY);
 
-			double XStart = x;
-			double YStart = y;
+			paintLine(X, Y, M, maxX, maxY, g2d);
 
-			double XEnd = x;
-			double YEnd = y;
 
-			if(m==0)
-			{
-				double l = (maxX*0.75)/2;
-				XStart = XStart-l;
-				XEnd = XEnd+l;
-			}
-
-			else{
-				double l = (sqrt(maxX * maxX + maxY * maxY))*0.75;
-
-				double changeX = (sqrt((l*l)/(1+m*m)))/2;
-				double changeY = (m*changeX)/2;
-
-				if (m<0)
-				{
-					XStart = XStart-changeX;
-					YStart = YStart+changeY;
-
-					XEnd = XEnd+changeX;
-					YEnd = YEnd-changeY;
-
-				}
-
-				else //m>0
-				{
-					XStart = XStart-changeX;
-					YStart = YStart-changeY;
-
-					XEnd = XEnd+changeX;
-					YEnd = YEnd+changeY;
-				}
-			}
 		}
 
 	}
+
+
+
+	public void paintLine(double X, double Y, double M, double maxX, double maxY, Graphics2D g2d)
+	{
+		double XStart = X;
+		double YStart = Y;
+
+		double XEnd = X;
+		double YEnd = Y;
+
+		System.out.println(XStart+", "+YStart+", "+XEnd+", "+XEnd);
+
+		if(M==0)
+		{
+			double l = (maxX*0.75)/2;
+			XStart = XStart-l;
+			XEnd = XEnd+l;
+		}
+
+		else{
+			double l = (sqrt(maxX * maxX + maxY * maxY))*0.75;
+
+			double changeX = (sqrt((l*l)/(1+M*M)))/2;
+			double changeY = (M*changeX)/2;
+
+			if (M<0)
+			{
+				XStart = XStart-changeX;
+				YStart = YStart-changeY;
+
+				XEnd = XEnd+changeX;
+				YEnd = YEnd+changeY;
+
+			}
+
+			else //m>0
+			{
+				XStart = XStart-changeX;
+				YStart = YStart+changeY;
+
+				XEnd = XEnd+changeX;
+				YEnd = YEnd-changeY;
+			}
+		}
+
+		System.out.println(XStart + ", " + YStart + ", " + XEnd + ", " + YEnd);
+
+		g2d.drawLine((int)XStart, (int)YStart, (int)XEnd, (int)YEnd);
+
+	}
+
+
 
 	public FieldPanel(ArrayList X, ArrayList Y, ArrayList M)
 	{
@@ -104,24 +123,35 @@ public class FieldPanel extends JPanel
 			Collections.sort(XTemp);
 			Collections.sort(YTemp);
 
+			System.out.println(XTemp.toString());
+			System.out.println(YTemp.toString());
+
+			System.out.println(XArray.toString());
+			System.out.println(YArray.toString());
+
+
 			int xi = 0;
 			numX++;
-			while(XTemp.get(xi)==XTemp.get(xi+1))
+			while(XTemp.get(xi).equals(XTemp.get(xi+1)))
 			{
 				numX++;
 				xi++;
 			}
+			System.out.println(numX);
 
 			int yi = 0;
 			numY++;
-			while(YTemp.get(yi)==YTemp.get(yi+1))
+			while(YTemp.get(yi).equals(YTemp.get(yi + 1)))
 			{
 				numY++;
 				yi++;
 			}
+			System.out.println(numY);
 
-			deltaX = Window.getXmax()-Window.getXmin();
-			deltaY = Window.getYmax()-Window.getYmin();
+			deltaX = 500;
+			deltaY = 500;
+
+
 
 		}
 	}
