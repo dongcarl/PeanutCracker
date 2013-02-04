@@ -9,6 +9,7 @@ package PeanutCracker;
  */
 public class Function
 {
+	//testing to see if my IDE and GitHub are back working after a crash
 	public String operator = "none";
 	public String function = "";
 	public String name = "def";
