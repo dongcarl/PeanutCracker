@@ -1,5 +1,7 @@
 package PeanutCracker;
 
+
+
 /**
  * Created with IntelliJ IDEA.
  * User: dongcarl
@@ -57,5 +59,9 @@ public class Function
 	public void setOperator(String operator)
 	{
 		this.operator = operator;
+	}
+	public void setNewFunctionPath(String funcPath)
+	{
+		addPath("funcPath"); //add the function to the searchPath
 	}
 }
