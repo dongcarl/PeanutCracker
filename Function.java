@@ -10,9 +10,9 @@ package PeanutCracker;
 public class Function
 {
 	//testing to see if my IDE and GitHub are back working after a crash
-	public String operator = "none";
-	public String function = "";
-	public String name = "def";
+	private String operator = "none";
+	private String function = "";
+	private String name = "def";
 	
 	public Function(String function)
 	{
@@ -27,5 +27,35 @@ public class Function
 		function = functio;
 		operator = operatio;
 		name = nam;
+	}
+
+	public String getFunction()
+	{
+		return function;
+	}
+
+	public void setFunction(String function)
+	{
+		this.function = function;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getOperator()
+	{
+		return operator;
+	}
+
+	public void setOperator(String operator)
+	{
+		this.operator = operator;
 	}
 }
