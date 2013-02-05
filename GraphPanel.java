@@ -37,6 +37,7 @@ public class GraphPanel extends JPanel
 
 	public GraphPanel(ArrayList X, ArrayList Y)
 	{
+
 		super();
 		/*
 		Checks if the ArrayLists of X and Y are the same size

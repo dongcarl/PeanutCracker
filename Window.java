@@ -4,10 +4,10 @@ public class Window
 {
 	static double xmin;
 	static double xmax;
-	double xres = 1;
+	static double xres = 1;
 	static double ymin;
 	static double ymax;
-	double yres = 1;
+	static double yres = 1;
 	public Window()
 	{
 		this(-10, 10, -10, 10);
