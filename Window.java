@@ -48,47 +48,47 @@ public class Window
 			yres = res;
 		}
 	}
-	public static double getXmin()
+	public double getXmin()
 	{
 		return xmin;
 	}
-	public void setXmin(double xmin) 
+	public void setXmin(double xmin)
 	{
 		this.xmin = xmin;
 	}
-	public double getXres() 
+	public double getXres()
 	{
 		return xres;
 	}
-	public void setXres(double xres) 
+	public void setXres(double xres)
 	{
 		this.xres = xres;
 	}
-	public static double getYmin()
+	public double getYmin()
 	{
 		return ymin;
 	}
-	public void setYmin(double ymin) 
+	public void setYmin(double ymin)
 	{
 		this.ymin = ymin;
 	}
-	public static double getYmax()
+	public double getYmax()
 	{
 		return ymax;
 	}
-	public void setYmax(double ymax) 
+	public void setYmax(double ymax)
 	{
 		this.ymax = ymax;
 	}
-	public double getYres() 
+	public double getYres()
 	{
 		return yres;
 	}
-	public void setYres(double yres) 
+	public void setYres(double yres)
 	{
 		this.yres = yres;
 	}
-	public static double getXmax()
+	public double getXmax()
 	{
 		return xmax;
 	}
