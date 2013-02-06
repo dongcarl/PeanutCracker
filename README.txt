@@ -5,7 +5,7 @@ This is a Java Project to develop a CAS/graphing program for calculus
 			Go to the following link http://webuser.hs-furtwangen.de/~dersch/jasymca2/indexEN.html
 			Click on Downloads > Jasymca
 			This will download a folder
-			Inside the folder, look for the Aplikation folder
+			Inside the folder, look for the "Applikation" folder
 			This will contain a Jasymca.jar file
 			Select this, and then add it as an External .JAR to the src folder of the PeanutCracker Project
 
