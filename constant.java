@@ -28,6 +28,10 @@ public class constant extends Element
 	{
 		return this;
 	}
+	public Element integrate()
+	{
+		return new polyElement(value, 1);
+	}
 	public double getValue()
 	{
 		return value;
