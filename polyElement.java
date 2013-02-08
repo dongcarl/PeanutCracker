@@ -41,10 +41,10 @@ public class polyElement extends Element
 		}
 		else
 		{
-			//return logElement
+			return new logarithm();
 		}
 	}
-	public Element substitute(double d)
+	public constant substitute(double d)
 	{
 		return new constant((Math.pow(d, power)*constant));
 	}
