@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Function extends ArrayList<Element>
 {
+	/**
+	 * generated serializable version UID added because it is a serializable class
+	 */
+	private static final long serialVersionUID = -1852458274303596909L;
 	//add to an interface Constants
 	public enum Operators {NONE, SUBSTITUTION, DERIVATIVE, INTEGRAL};
 	
