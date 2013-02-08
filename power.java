@@ -22,14 +22,14 @@ public class power extends Element
 	}
 	public Element derive()
 	{
-		
+		//ln(base) times base to the x
 	}
 	public Element integrate()
 	{
-		
+		//1 divided by base to the x times lnbase
 	}
 	public Element substitute(double d)
 	{
-		return new constant((Math.pow(base, d)*constant);
+		return new constant((Math.pow(base, d)*constant));
 	}
 }

@@ -2,9 +2,10 @@ package PeanutCracker;
 
 public class polyElement extends Element implements Comparable<polyElement>
 {
+	//this class is equivalent to constant times x to the counting number power power
 	double constant = 1;
-	double power = 1;
-	public polyElement(double constan, double powe)
+	int power = 1;
+	public polyElement(double constan, int powe)
 	{
 		name = "polyElement";
 		constant = Math.abs(constan);
@@ -20,7 +21,7 @@ public class polyElement extends Element implements Comparable<polyElement>
 	}
 	public polyElement()
 	{
-		this(1.0,1.0);
+		this(1.0,1);
 	}
 	public double getPower()
 	{
@@ -33,13 +34,13 @@ public class polyElement extends Element implements Comparable<polyElement>
 	public polyElement derive()
 	{
 		double newConstant = constant*(power);
-		double newPower = (power-1);
+		int newPower = (power-1);
 		return new polyElement(newConstant, newPower);
 	}
 	public polyElement integrate()
 	{
 		double newConstant = constant/(power+1);
-		double newPower = (power+1);
+		int newPower = (power+1);
 		return new polyElement(newConstant, newPower);
 	}
 	@Override

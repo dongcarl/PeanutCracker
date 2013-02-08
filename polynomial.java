@@ -22,9 +22,9 @@ public class polynomial extends Element
 		alex.sortElements();
 		System.out.println("sorted poly");
 		System.out.println(alex.printME());
-		alex = alex.derive();
-		System.out.println("derived poly");
-		System.out.println(alex.printME());
+//		alex = alex.derive();
+//		System.out.println("derived poly");
+//		System.out.println(alex.printME());
 		alex = alex.integrate();
 		System.out.println("integrated poly");
 		System.out.println(alex.printME());
@@ -65,7 +65,7 @@ public class polynomial extends Element
 		polyElement fred;
 		for (Element p:subElements)
 		{
-			fred = (polyElement) (p.derive());
+			fred = (polyElement) (p.integrate());
 			freder.add(fred);
 		}
 		return new polynomial(freder);
