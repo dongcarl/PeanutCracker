@@ -2,7 +2,7 @@ package PeanutCracker;
 
 import java.util.ArrayList;
 
-public abstract class Element 
+public abstract class Element
 {
 	public String name;
 	
