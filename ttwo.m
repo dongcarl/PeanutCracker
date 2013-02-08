@@ -1,1 +1,0 @@
-function y=ttwo(x) y = 2*x; end
