@@ -11,7 +11,7 @@ public class Function extends ArrayList<Element>
 	//add to an interface Constants
 	public enum Operators {NONE, SUBSTITUTION, DERIVATIVE, INTEGRAL};
 	
-	Operators operator = Operators.NONE;
+	PeanutCracker.MasterMind.Operators operator = Operators.NONE;
 	Double substitute;
 	String modFunction;
 	public Function()
@@ -40,10 +40,10 @@ public class Function extends ArrayList<Element>
 			this.add(e);
 		}
 	}
-	public void setOperator(Operators op)
+	public void setOperator(PeanutCracker.MasterMind.Operators mone)
 	{
 		//sets the enum operator
-		operator = op;
+		operator = mone;
 	}
 	public ArrayList<Element> getFunction()
 	{
@@ -72,66 +72,5 @@ public class Function extends ArrayList<Element>
 			sam = false;
 		}
 		return sam;
-	}
-	public Function operate(Function dave)
-	{
-		//called so that the function operates on itself, and it should return a new function with no operation
-		//this will be moved to the mastermind class
-		if (dave.checkOp())
-		{
-			Function carl = dave;
-			carl.setOperator(Operators.NONE);
-			if (carl.getOperator() == Operators.SUBSTITUTION)
-			{
-				double frank = substitute(carl,substitute);
-				constant fred = new constant(frank);
-				carl = new Function();
-				carl.add(fred);
-			}
-			else if (carl.getOperator() == Operators.DERIVATIVE)
-			{
-				carl = differentiate(carl);
-			}
-			else if (carl.getOperator() == Operators.INTEGRAL)
-			{
-				carl = integrate(carl);
-			}
-			return carl;
-		}
-		else
-		{
-			return dave;
-		}
-	}
-	private double substitute(Function mode, double replace)
-	{
-		//substitutes and evaluates the function for the given variable in place of "x"
-		Function mod = mode;
-		double sum = 0.0;
-		for (Element e:mod)
-		{
-			constant charlie = e.substitute(replace);
-			sum += charlie.getValue();
-			//should return a constant function with one element e
-		}
-		return sum;
-	}
-	private Function integrate(Function mode)
-	{
-		Function mod = mode;
-		for (Element e:mod)
-		{
-			e = e.derive();
-		}
-		return mod;
-	}
-	private Function differentiate(Function mode)
-	{
-		Function mod = mode;
-		for (Element e:mod)
-		{
-			e = e.derive();
-		}
-		return mod;
 	}
 }
