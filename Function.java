@@ -2,16 +2,15 @@ package PeanutCracker;
 
 import java.util.ArrayList;
 
-public class Function extends ArrayList<Element>
+public class Function extends ArrayList<Element> implements Operator
 {
 	/**
 	 * generated serializable version UID added because it is a serializable class
 	 */
 	private static final long serialVersionUID = -1852458274303596909L;
 	//add to an interface Constants
-	public enum Operators {NONE, SUBSTITUTION, DERIVATIVE, INTEGRAL};
 	
-	PeanutCracker.MasterMind.Operators operator = Operators.NONE;
+	Operators operator = Operators.NONE;
 	Double substitute;
 	String modFunction;
 	public Function()
@@ -40,7 +39,7 @@ public class Function extends ArrayList<Element>
 			this.add(e);
 		}
 	}
-	public void setOperator(PeanutCracker.MasterMind.Operators mone)
+	public void setOperator(Operators mone)
 	{
 		//sets the enum operator
 		operator = mone;
