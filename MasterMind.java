@@ -1,7 +1,5 @@
 package PeanutCracker;
 
-import PeanutCracker.Function.Operators;
-
 /**
  * Created with IntelliJ IDEA.
  * Editted with Aptana Studio 3
@@ -10,11 +8,8 @@ import PeanutCracker.Function.Operators;
  * Date: 2/1/13
  * Time: 2:56 PM
  */
-public class MasterMind
+public class MasterMind implements Operator
 {
-	public enum Operators {NONE, SUBSTITUTION, DERIVATIVE, INTEGRAL};
-
-	Operators operator = Operators.NONE;
 	Double substitute;
 	String modFunction;
 	public MasterMind(ControlCenter cathy)
@@ -37,11 +32,11 @@ public class MasterMind
 			}
 			else if (carl.getOperator() == Operators.DERIVATIVE)
 			{
-				carl = carl.differentiate(carl);
+				carl = differentiate(carl);
 			}
 			else if (carl.getOperator() == Operators.INTEGRAL)
 			{
-				carl = carl.integrate(carl);
+				carl = integrate(carl);
 			}
 			carl.setOperator(Operators.NONE);
 			return carl;
