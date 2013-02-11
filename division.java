@@ -11,7 +11,7 @@ public class division extends Element
 	}
 
 	@Override
-	public constant substitute(Double d) 
+	public constant substitute(double replace) 
 	{
 		// TODO Auto-generated method stub
 		return null;

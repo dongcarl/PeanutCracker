@@ -31,7 +31,7 @@ public class constant extends Element
 	{
 		return value;
 	}
-	public constant substitute(Double d) 
+	public constant substitute(double replace) 
 	{
 		return new constant(value);
 	}

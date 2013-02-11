@@ -51,5 +51,10 @@ public class polyElement extends Element implements Comparable<polyElement>
 		else if (diff<0) return -1;
 		else return 0;
 	}
+	@Override
+	public constant substitute(double replace) 
+	{
+		return new constant(Math.pow(replace, power)*constant);
+	}
  
 }

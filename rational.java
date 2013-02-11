@@ -23,11 +23,15 @@ public class rational extends division
 	}
 	public polynomial derive()
 	{
+		//TODO fix method
 		//derive a rational function
+		return null;
 	}
 	public polynomial integrate()
 	{
+		//TODO fix method
 		//integrate a rational function
+		return null;
 	}
 	public constant substitute(double replace)
 	{

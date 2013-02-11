@@ -1,8 +1,14 @@
 package PeanutCracker;
 
-public class multiplication extends Element
-{
+import java.util.ArrayList;
 
+public class paren extends Element
+{
+	ArrayList<Element> subElements;
+	public paren(ArrayList<Element> a)
+	{
+		subElements = a;
+	}
 	@Override
 	public Element derive() {
 		// TODO Auto-generated method stub
@@ -20,5 +26,5 @@ public class multiplication extends Element
 		// TODO Auto-generated method stub
 		return null;
 	}
-	//element a multiplied by element b
+
 }

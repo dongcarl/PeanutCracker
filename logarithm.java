@@ -20,14 +20,16 @@ public class logarithm extends Element
 	}
 	public Element derive()
 	{
-		
+		//TODO fix method
+		return null;
 	}
 	public Element integrate()
 	{
-		
+		//TODO fix method
+				return null;
 	}
-	public Element substitute(double d)
+	public constant substitute(double d)
 	{
-		return new constant((Math.pow(base, d)*constant);
+		return new constant((Math.pow(base, d)*constant));
 	}
 }

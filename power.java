@@ -22,13 +22,17 @@ public class power extends Element
 	}
 	public Element derive()
 	{
+		//TODO fix method
 		//ln(base) times base to the x
+		return null;
 	}
 	public Element integrate()
 	{
+		//TODO fix method
 		//1 divided by base to the x times lnbase
+		return null;
 	}
-	public Element substitute(double d)
+	public constant substitute(double d)
 	{
 		return new constant((Math.pow(base, d)*constant));
 	}
