@@ -2,6 +2,7 @@ package PeanutCracker;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,59 +14,43 @@ import java.util.ArrayList;
 public class GraphFrame extends JFrame
 {
 
+	public static GraphPanel gpnl = new GraphPanel();
+
+
+
 	public static void main(String arg[])
 	{
-		ArrayList<Double> XArray = new ArrayList<Double>();
-		ArrayList<Double> YArray = new ArrayList<Double>();
-		ArrayList<Double> MArray = new ArrayList<Double>();
-
-
-		XArray.add(100.0);            		YArray.add(100.0);                  MArray.add(1.0);
-		XArray.add(100.0);                  YArray.add(200.0);                  MArray.add(1.0);
-		XArray.add(100.0);             		YArray.add(300.0);                  MArray.add(1.0);
-		XArray.add(100.0);            		YArray.add(400.0);                  MArray.add(1.0);
-
-		XArray.add(200.0);            		YArray.add(100.0);                  MArray.add(-1.0);
-		XArray.add(200.0);                  YArray.add(200.0);                  MArray.add(-1.0);
-		XArray.add(200.0);             		YArray.add(300.0);                  MArray.add(-1.0);
-		XArray.add(200.0);            		YArray.add(400.0);                  MArray.add(-1.0);
-
-		XArray.add(300.0);            		YArray.add(100.0);                  MArray.add(0.5);
-		XArray.add(300.0);                  YArray.add(200.0);                  MArray.add(0.5);
-		XArray.add(300.0);             		YArray.add(300.0);                  MArray.add(0.5);
-		XArray.add(300.0);            		YArray.add(400.0);                  MArray.add(0.5);
-
-		XArray.add(400.0);            		YArray.add(100.0);                  MArray.add(-0.5);
-		XArray.add(400.0);                  YArray.add(200.0);                  MArray.add(-0.5);
-		XArray.add(400.0);             		YArray.add(300.0);                  MArray.add(-0.5);
-		XArray.add(400.0);            		YArray.add(400.0);                  MArray.add(-0.5);
-
-
-
-		System.out.println(XArray.toString());
-		System.out.println(YArray.toString());
-		System.out.println(MArray.toString());
-
-
-
-		GraphFrame ex = new GraphFrame(XArray, YArray, MArray);
+		GraphFrame ex = new GraphFrame();
 		ex.setSize(500, 500);
 		ex.setTitle("Lines");
 		ex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ex.setVisible(true);
 	}
 
-	public GraphFrame(ArrayList<Double> XArray, ArrayList<Double> YArray)
+	public GraphFrame()
 	{
-		GraphPanel gpnl = new GraphPanel(XArray, YArray);
 		this.add(gpnl);
+		JMenuBar menubar = new JMenuBar();
+		JMenu menu = new JMenu("File");
+		JMenuItem menuitem = new JMenuItem("Save...");
+		menu.add(menuitem);
+		menubar.add(menu);
+		this.setJMenuBar(menubar);
 	}
 
-	public GraphFrame(ArrayList<Double> XArray, ArrayList<Double> YArray, ArrayList<Double> MArray)
+	public GraphFrame(ArrayList X, ArrayList Y)
 	{
-		FieldPanel fpnl = new FieldPanel(XArray, YArray, MArray);
-		this.add(fpnl);
+		new GraphFrame();
+		addFunc(X, Y);
 	}
+
+	public static void addFunc(ArrayList X, ArrayList Y)
+	{
+		gpnl.addGraph(X, Y);
+		gpnl.revalidate();
+
+	}
+
 
 
 
