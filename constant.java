@@ -2,7 +2,6 @@ package PeanutCracker;
 
 public class constant extends Element 
 {
-	double value;
 	public constant(String nam, double val)
 	{
 		name = nam;
@@ -24,10 +23,6 @@ public class constant extends Element
 	{
 		return new constant(0.0);
 	}
-	public Element substitute()
-	{
-		return this;
-	}
 	public Element integrate()
 	{
 		return new polyElement(value, 1);
@@ -35,5 +30,9 @@ public class constant extends Element
 	public double getValue()
 	{
 		return value;
+	}
+	public constant substitute(Double d) 
+	{
+		return new constant(value);
 	}
 }

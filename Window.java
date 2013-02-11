@@ -4,7 +4,7 @@ public class Window
 {
 	static double xmin;
 	static double xmax;
-	static double xres = 1;
+	static double xres = 1; //pixels per unit
 	static double ymin;
 	static double ymax;
 	static double yres = 1;

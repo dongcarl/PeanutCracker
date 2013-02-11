@@ -1,5 +1,7 @@
 package PeanutCracker;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * Editted with Aptana Studio 3
@@ -8,13 +10,41 @@ package PeanutCracker;
  * Date: 2/1/13
  * Time: 2:56 PM
  */
+
+//TODO write a zeros function
 public class MasterMind implements Operator
 {
 	Double substitute;
 	String modFunction;
+	ControlCenter communication;
+	ArrayList<Double> xpoints = new ArrayList<Double>();
+	public static void main(String[] args)
+	{
+		MasterMind cake = new MasterMind(new ControlCenter());
+		ArrayList<Element> jake = new ArrayList<Element>();
+		polynomial polly = new polynomial();
+		polly.addElement(new polyElement(15, 4));
+		polly.addElement(new polyElement(3, 6));
+		polly.addElement(new polyElement(3, 1));
+		polly.addElement(new polyElement(.5 , (int) .5));
+		jake.add(polly);
+		Function terry = new Function(jake);
+		terry = cake.operate(terry);
+		Window witherspoon = new Window();
+		ArrayList<ArrayList<Double>> masm = getPoints(terry, witherspoon);
+		ArrayList<Double> xp = masm.get(0);
+		ArrayList<Double> yp = masm.get(1);
+		for (int i = 0; i < xp.size(); i++)
+		{
+			double xpoint = xp.get(i);
+			double ypoint = yp.get(i);
+			System.out.print(""+xpoint+","+ypoint+" ");
+		}
+	}
 	public MasterMind(ControlCenter cathy)
 	{
-		//The constructor takes in a ControlCenter to pass messages to and a function to act on
+		//The constructor takes in a ControlCenter to pass messages to
+		communication = cathy;
 	}
 	public Function operate(Function dave)
 	{
@@ -46,7 +76,27 @@ public class MasterMind implements Operator
 			return dave;
 		}
 	}
-	private double substitute(Function mode, double replace)
+	public static ArrayList<ArrayList<Double>> getPoints(Function mode, Window wind)
+	{
+		ArrayList<ArrayList<Double>> setup = new ArrayList<ArrayList<Double>>(2);
+		ArrayList<Double> xpoints = new ArrayList<Double>();
+		ArrayList<Double> ypoints = new ArrayList<Double>();
+		double xmi = wind.xmin;
+		double xma = wind.xmax;
+		double xdif = xma-xmi;
+		double xcount = xdif*wind.xres;
+		double xval;
+		for (int i = 0; i<=xcount; i++)
+		{
+			xval = xma+(i*(xdif/xcount));
+			xpoints.add(xval);
+			ypoints.add(substitute(mode, xval));
+		}
+		setup.add(xpoints);
+		setup.add(ypoints);
+		return setup;
+	}
+	private static double substitute(Function mode, double replace)
 	{
 		//substitutes and evaluates the function for the given variable in place of "x"
 		Function mod = mode;

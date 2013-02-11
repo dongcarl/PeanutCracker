@@ -7,6 +7,11 @@ public class Function extends ArrayList<Element> implements Operator
 	/**
 	 * generated serializable version UID added because it is a serializable class
 	 */
+	//parametric function
+	//limits
+	//integrals
+	//differentiation
+	
 	private static final long serialVersionUID = -1852458274303596909L;
 	//add to an interface Constants
 	
