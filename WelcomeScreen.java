@@ -42,6 +42,18 @@ public class WelcomeScreen extends JFrame implements MouseListener
 	}
 
 	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		//To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		//To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
 	public void mouseReleased(MouseEvent e)
 	{
 		Component theChosenOne = e.getComponent();
@@ -64,5 +76,17 @@ public class WelcomeScreen extends JFrame implements MouseListener
 			System.out.println("WHADDAYA WANT FROM ME!");
 		}
 
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{
+		//To change body of implemented methods use File | Settings | File Templates.
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e)
+	{
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 }
