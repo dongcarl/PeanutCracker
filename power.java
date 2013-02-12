@@ -9,6 +9,7 @@ public class power extends Element
 	
 	public power(double bas, double constan)
 	{
+		name = "power";
 		base = bas;
 		constant = constan;
 	}

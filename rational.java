@@ -9,6 +9,7 @@ public class rational extends division
 	
 	public rational(polynomial tops, polynomial bottoms)
 	{
+		name = "bottom";
 		top = tops;
 		bottom = bottoms;
 	}

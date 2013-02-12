@@ -9,7 +9,7 @@ public class powElement extends Element implements Comparable<powElement>
 	
 	public powElement(double constan, double powe)
 	{
-		name = "polyElement";
+		name = "powElement";
 		constant = constan;
 		power = powe;
 		if (constant == 0)
