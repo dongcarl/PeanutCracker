@@ -2,22 +2,33 @@ package PeanutCracker;
 
 public class constant extends Element 
 {
-	public constant(String nam, double val)
-	{
-		name = nam;
-		value = val;
-	}
-	public constant(String nam)
-	{
-		this(nam, 0);
-	}
+//	public constant(String nam, double val)
+//	{
+//		name = nam;
+//		value = val;
+//	}
+//	public constant(String nam)
+//	{
+//		this(nam, 0);
+//	}
 	public constant(double val)
 	{
-		this("constant",val);
+		value = val;
+		name = "constant";
 	}
 	public constant()
 	{
-		this("constant");
+		this(0);
+	}
+	@Override
+	public void multiConstant(double con)
+	{
+		value = con;
+	}
+	@Override
+	public double getConstant()
+	{
+		return value;
 	}
 	public Element derive()
 	{

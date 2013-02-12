@@ -7,6 +7,7 @@ public class logarithm extends Element
 	double constant = 1;
 	public logarithm(double bas, double constan)
 	{
+		name = "logarithm";
 		base = bas;
 		constant = constan;
 	}

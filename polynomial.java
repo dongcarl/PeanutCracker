@@ -31,10 +31,12 @@ public class polynomial extends Element
 	}
 	public polynomial(ArrayList<polyElement> addlist)
 	{
+		name = "polynomial";
 		subElements = addlist;
 	}
 	public polynomial()
 	{
+		name = "polynomial";
 		subElements = new ArrayList<polyElement>();
 	}
 	public void sortElements()

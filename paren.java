@@ -8,6 +8,8 @@ public class paren extends Element
 	public paren(ArrayList<Element> a)
 	{
 		subElements = a;
+		name = "paren";
+		
 	}
 	@Override
 	public Element derive() {
