@@ -9,5 +9,9 @@ package PeanutCracker;
  */
 public class Message
 {
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> mistake
 }
