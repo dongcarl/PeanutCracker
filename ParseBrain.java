@@ -1,29 +1,32 @@
 package PeanutCracker;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ParseBrain 
 {
-	//TODO I need to rewrite so that each paren is split up into its own thing, so that I don't miss things like ln(x), etc.
-	//then split paren groups by multiplication, division
-	//then split paren groups by addition, subtraction, into elements within the parens
-	//then merge parens
 	static ArrayList<Integer> sparen = new ArrayList<Integer>(); //list of all start parens index
 	static ArrayList<Integer> eparen = new ArrayList<Integer>(); //list of end parens index
 	static ArrayList<Integer> iSplit = new ArrayList<Integer>(); //list of all of the split points for a function
 	static ArrayList<String> splits = new ArrayList<String>(); //list of the split strings between, parentheses, +, -, etc.
 	static ArrayList<Integer> operations = new ArrayList<Integer>(); //list of *, /, +, -
-	static ArrayList<Integer> equals = new ArrayList<Integer>();
-	static ArrayList<Integer> endFunc = new ArrayList<Integer>();
-	static ArrayList<Element> funcParts = new ArrayList<Element>();
+	static ArrayList<Integer> equals = new ArrayList<Integer>(); //list of "="
+	static ArrayList<Integer> endFunc = new ArrayList<Integer>(); //the list of where we find ; to end functions
+	static ArrayList<Element> funcParts = new ArrayList<Element>(); //the parts of the function to send out
+	static ArrayList<String> preParen = new ArrayList<String>(); //the possible operations before each element
+	static ArrayList<String> pparen = new ArrayList<String>(); //the operation before each element
 
+	public ParseBrain()
+	{
+		preParen.add("ln"); preParen.add("sin"); preParen.add("cos"); preParen.add("tan");  
+			preParen.add("arcsin"); preParen.add("arccos"); preParen.add("arctan"); 
+			preParen.add("*"); preParen.add("/"); preParen.add("+"); preParen.add("-");
+			preParen.add("=");
+	}
 	public static void main(String[] args)
 	{
 		String testInputString = "((165x^2/ln(x+1))*x^2)";
 		System.out.println(testInputString);
 		parse(testInputString);
-		System.out.println("splits: "+printSplits());
 		for (int i = 0; i < splits.size(); i++)	funcParts.add(convertString(splits.get(i)));
 	}
 	public static Function parse(String rawInputString)
@@ -36,85 +39,74 @@ public class ParseBrain
 		String InputString = fixDelimiters(rawInputString);
 		System.out.println("Fixed delimiters "+InputString);
 		scanCopySplit(InputString);
-
+		
 		return jerrymander;
 	}
-	private static void scan(String inputString)
+	private static void scanCopySplit(String str)
 	{
-		for (int i = 0; i < inputString.length(); i++)
+		scan(str);
+		copySplit(str);
+	}
+	private static void scan(String str)
+	{
+		//scan the first string for elements (paren, +, -)
+		//first scan for parentheses
+		int i = 0;
+		int parenLevel = 0;
+		int startParen = -1;
+		int endParen = -1;
+		boolean parenInProgress = false;
+		sparen = new ArrayList<Integer>();
+		eparen = new ArrayList<Integer>();
+		while (i < str.length())
 		{
-			String str = inputString.substring(i,i+1);
-			if (str.equals("("))
+			if (str.substring(i,i+1).equals("("))
 			{
-				sparen.add(i);
+				parenLevel = parenLevel+1;
 			}
-			else if (str.equals(")"))
+			if (str.substring(i,i+1).equals(")"))
 			{
-				eparen.add(i);
+				parenLevel = parenLevel-1;
 			}
-			else if (str.equals("="))
+			if (parenLevel == 0 && parenInProgress == false)
 			{
-				equals.add(i);
+				//happens during no paren
+				startParen = i;
+				parenInProgress = true;
 			}
-			else if (str.equals("/") || str.equals("+") || str.equals("-") || str.equals("*"))
+			else if (parenLevel == 0 && parenInProgress == true)
 			{
-				operations.add(i);
+				endParen = i;
+				parenInProgress = false;
+				sparen.add(startParen);
+				eparen.add(endParen);
+				setPreElement(str, startParen);
+				startParen = -1;
+				endParen = -1;
 			}
-			else if (str.equals(";"))
+			i++;
+		}
+	}
+	public static void setPreElement(String str, int index)
+	{
+		for (String func : preParen)
+		{
+			String add = "+";
+			if (index>func.length())
 			{
-				endFunc.add(i);
+				String ssub = str.substring(index-func.length(),index);
+				if (ssub.equals(func))
+				{
+					add = func;
+				}
 			}
+			pparen.add(add);
 		}
 	}
 	public static void copySplit(String inputString)
 	{
-		assembleISplit();
-		String copyFull = new String(inputString);
-		splits = new ArrayList<String>();
-		for (int j = 0; j<iSplit.size()-1; j++)
-		{
-			int startIndex = iSplit.get(j)+1;
-			int endIndex = copyFull.length();
-			try
-			{
-				endIndex = iSplit.get(j+1);
-			}
-			catch (IndexOutOfBoundsException noobex)
-			{
-				System.out.println("index out of bounds exception caught");
-				endIndex =  iSplit.get(j);
-			}
-			//System.out.println(startIndex+" "+endIndex);
-			String cutString = copyFull.substring(startIndex, Math.max(startIndex,endIndex));
-			splits.add(cutString);
-		}
-		//System.out.println("Splits finished");
-
-	}
-	public static void assembleISplit()
-	{
-		//assemble list
-		for (int j : sparen)
-		{
-			iSplit.add(j);
-		}
-		for (int j : eparen)
-		{
-			iSplit.add(j);
-		}
-		for (int j : operations)
-		{
-			iSplit.add(j);
-		}
-		for (int j : equals)
-		{
-			iSplit.add(j);
-		}
-		for (int j : endFunc)
-		{
-			iSplit.add(j);
-		}
-		Collections.sort(iSplit);
+		//split into strings that represent one element
+		//aka parens, then anything between
 	}
 	public static String fixDelimiters(String str1)
 	{
@@ -147,20 +139,6 @@ public class ParseBrain
 			}
 			return str;
 		}
-	}
-	public static void scanCopySplit(String inputString)
-	{
-		scan(inputString);
-		copySplit(inputString);
-	}
-	public static String printSplits()
-	{
-		String fial = "";
-		for (String str : splits)
-		{
-			fial = fial + " | "+str;
-		}
-		return fial.substring(2);
 	}
 	public static Element convertString(String str)
 	{
@@ -199,12 +177,12 @@ public class ParseBrain
 					power = 0;
 				}
 				System.out.println("Converted to polyElement x^"+power);
-				return new polyElement(1,power);
+				return new Monomial(1,power);
 			}
 			else
 			{
 				System.out.println("Converted to polyElement x");
-				return new polyElement(1,1);
+				return new Monomial(1,1);
 			}
 		}
 	}

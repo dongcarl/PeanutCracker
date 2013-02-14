@@ -15,8 +15,8 @@ public class rational extends division
 	}
 	public rational(polynomial tops)
 	{
-		ArrayList<polyElement> QB = new ArrayList<polyElement>();
-		polyElement one = new polyElement(1,1);
+		ArrayList<Monomial> QB = new ArrayList<Monomial>();
+		Monomial one = new Monomial(1,1);
 		QB.add(one);
 		polynomial barry = new polynomial(QB);
 		top = tops;

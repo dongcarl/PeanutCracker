@@ -1,11 +1,11 @@
 package PeanutCracker;
 
-public class polyElement extends Element implements Comparable<polyElement>
+public class Monomial extends Element implements Comparable<Monomial>
 {
 	//this class is equivalent to constant times x to the counting number power power
 	double constant = 1;
 	int power = 1;
-	public polyElement(double constan, int powe)
+	public Monomial(double constan, int powe)
 	{
 		name = "polyElement";
 		constant = Math.abs(constan);
@@ -19,7 +19,7 @@ public class polyElement extends Element implements Comparable<polyElement>
 			new constant(constan);
 		}
 	}
-	public polyElement()
+	public Monomial()
 	{
 		this(1.0,1);
 	}
@@ -31,20 +31,20 @@ public class polyElement extends Element implements Comparable<polyElement>
 	{
 		return constant;
 	}
-	public polyElement derive()
+	public Monomial derive()
 	{
 		double newConstant = constant*(power);
 		int newPower = (power-1);
-		return new polyElement(newConstant, newPower);
+		return new Monomial(newConstant, newPower);
 	}
-	public polyElement integrate()
+	public Monomial integrate()
 	{
 		double newConstant = constant/(power+1);
 		int newPower = (power+1);
-		return new polyElement(newConstant, newPower);
+		return new Monomial(newConstant, newPower);
 	}
 	@Override
-	public int compareTo(polyElement p) 
+	public int compareTo(Monomial p) 
 	{
 		double diff = this.getPower()-p.getPower();
 		if (diff>0) return 1;

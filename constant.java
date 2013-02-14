@@ -36,7 +36,7 @@ public class constant extends Element
 	}
 	public Element integrate()
 	{
-		return new polyElement(value, 1);
+		return new Monomial(value, 1);
 	}
 	public double getValue()
 	{

@@ -23,10 +23,10 @@ public class MasterMind implements Operator
 		MasterMind cake = new MasterMind(new ControlCenter());
 		ArrayList<Element> jake = new ArrayList<Element>();
 		polynomial polly = new polynomial();
-		polly.addElement(new polyElement(15, 4));
-		polly.addElement(new polyElement(3, 6));
-		polly.addElement(new polyElement(3, 1));
-		polly.addElement(new polyElement(.5 , (int) .5));
+		polly.addElement(new Monomial(15, 4));
+		polly.addElement(new Monomial(3, 6));
+		polly.addElement(new Monomial(3, 1));
+		polly.addElement(new Monomial(.5 , (int) .5));
 		jake.add(polly);
 		Function terry = new Function(jake);
 		terry = cake.operate(terry);

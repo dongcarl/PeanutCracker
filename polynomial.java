@@ -6,15 +6,15 @@ import java.util.Collections;
 public class polynomial extends Element
 {
 	//a list of polyElements, mostly just a container
-	ArrayList<polyElement> subElements = new ArrayList<polyElement>();
+	ArrayList<Monomial> subElements = new ArrayList<Monomial>();
 	public static void main(String[] args)
 	{
 		//testing sorting and such things
-		ArrayList<polyElement> QB = new ArrayList<polyElement>();
-		polyElement one = new polyElement(1,16);
-		polyElement two = new polyElement(2,4);
-		polyElement three = new polyElement(3,3);
-		polyElement four = new polyElement(-6,-2);
+		ArrayList<Monomial> QB = new ArrayList<Monomial>();
+		Monomial one = new Monomial(1,16);
+		Monomial two = new Monomial(2,4);
+		Monomial three = new Monomial(3,3);
+		Monomial four = new Monomial(-6,-2);
 		QB.add(three); QB.add(four); QB.add(one); QB.add(two);
 		polynomial alex = new polynomial(QB);
 		System.out.println("input poly");
@@ -29,7 +29,7 @@ public class polynomial extends Element
 		System.out.println("integrated poly");
 		System.out.println(alex.printME());
 	}
-	public polynomial(ArrayList<polyElement> addlist)
+	public polynomial(ArrayList<Monomial> addlist)
 	{
 		name = "polynomial";
 		subElements = addlist;
@@ -37,7 +37,7 @@ public class polynomial extends Element
 	public polynomial()
 	{
 		name = "polynomial";
-		subElements = new ArrayList<polyElement>();
+		subElements = new ArrayList<Monomial>();
 	}
 	public void sortElements()
 	{
@@ -45,29 +45,29 @@ public class polynomial extends Element
 		Collections.sort(subElements);
 		Collections.reverse(subElements);
 	}
-	public void addElement(polyElement p)
+	public void addElement(Monomial p)
 	{
 		subElements.add(p);
 		this.sortElements();
 	}
 	public polynomial derive()
 	{
-		ArrayList<polyElement> walter = new ArrayList<polyElement>();
-		polyElement walt;
+		ArrayList<Monomial> walter = new ArrayList<Monomial>();
+		Monomial walt;
 		for (Element p:subElements)
 		{
-			walt = (polyElement) (p.derive());
+			walt = (Monomial) (p.derive());
 			walter.add(walt);
 		}
 		return new polynomial(walter);
 	}
 	public polynomial integrate()
 	{
-		ArrayList<polyElement> freder = new ArrayList<polyElement>();
-		polyElement fred;
+		ArrayList<Monomial> freder = new ArrayList<Monomial>();
+		Monomial fred;
 		for (Element p:subElements)
 		{
-			fred = (polyElement) (p.integrate());
+			fred = (Monomial) (p.integrate());
 			freder.add(fred);
 		}
 		return new polynomial(freder);
@@ -88,7 +88,7 @@ public class polynomial extends Element
 	public String printME()
 	{
 		String outer = "";
-		for (polyElement p : subElements)
+		for (Monomial p : subElements)
 		{
 			outer+= p.getConstant()+"x^"+p.getPower()+" + ";
 		}
