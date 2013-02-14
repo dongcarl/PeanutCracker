@@ -22,7 +22,7 @@ public class MasterMind implements Operator
 	{
 		MasterMind cake = new MasterMind(new ControlCenter());
 		ArrayList<Element> jake = new ArrayList<Element>();
-		polynomial polly = new polynomial();
+		Polynomial polly = new Polynomial();
 		polly.addElement(new Monomial(15, 4));
 		polly.addElement(new Monomial(3, 6));
 		polly.addElement(new Monomial(3, 1));
@@ -56,7 +56,7 @@ public class MasterMind implements Operator
 			if (carl.getOperator() == Operators.SUBSTITUTION)
 			{
 				double frank = substitute(carl,substitute);
-				constant fred = new constant(frank);
+				Constant fred = new Constant(frank);
 				carl = new Function();
 				carl.add(fred);
 			}
@@ -103,7 +103,7 @@ public class MasterMind implements Operator
 		double sum = 0.0;
 		for (Element e:mod)
 		{
-			constant charlie = e.substitute(replace);
+			Constant charlie = e.substitute(replace);
 			sum += charlie.getValue();
 			//should return a constant function with one element e
 		}

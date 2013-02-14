@@ -2,45 +2,45 @@ package PeanutCracker;
 
 import java.util.ArrayList;
 
-public class rational extends division 
+public class Rational extends Division 
 {
-	polynomial top;
-	polynomial bottom;
+	Polynomial top;
+	Polynomial bottom;
 	
-	public rational(polynomial tops, polynomial bottoms)
+	public Rational(Polynomial tops, Polynomial bottoms)
 	{
 		name = "bottom";
 		top = tops;
 		bottom = bottoms;
 	}
-	public rational(polynomial tops)
+	public Rational(Polynomial tops)
 	{
 		ArrayList<Monomial> QB = new ArrayList<Monomial>();
 		Monomial one = new Monomial(1,1);
 		QB.add(one);
-		polynomial barry = new polynomial(QB);
+		Polynomial barry = new Polynomial(QB);
 		top = tops;
 		bottom = barry;
 	}
-	public polynomial derive()
+	public Polynomial derive()
 	{
 		//TODO fix method
 		//derive a rational function
 		return null;
 	}
-	public polynomial integrate()
+	public Polynomial integrate()
 	{
 		//TODO fix method
 		//integrate a rational function
 		return null;
 	}
-	public constant substitute(double replace)
+	public Constant substitute(double replace)
 	{
 		//substitutes and evaluates the function for the given variable in place of "x"
-		constant t = top.substitute(replace);
-		constant b = bottom.substitute(replace);
+		Constant t = top.substitute(replace);
+		Constant b = bottom.substitute(replace);
 		double div = t.getValue()/b.getValue();
-		constant mary = new constant(div);
+		Constant mary = new Constant(div);
 		return mary;
 	}
 }

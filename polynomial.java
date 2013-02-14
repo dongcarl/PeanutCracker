@@ -3,7 +3,7 @@ package PeanutCracker;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class polynomial extends Element
+public class Polynomial extends Element
 {
 	//a list of polyElements, mostly just a container
 	ArrayList<Monomial> subElements = new ArrayList<Monomial>();
@@ -16,7 +16,7 @@ public class polynomial extends Element
 		Monomial three = new Monomial(3,3);
 		Monomial four = new Monomial(-6,-2);
 		QB.add(three); QB.add(four); QB.add(one); QB.add(two);
-		polynomial alex = new polynomial(QB);
+		Polynomial alex = new Polynomial(QB);
 		System.out.println("input poly");
 		System.out.println(alex.printME());
 		alex.sortElements();
@@ -29,12 +29,12 @@ public class polynomial extends Element
 		System.out.println("integrated poly");
 		System.out.println(alex.printME());
 	}
-	public polynomial(ArrayList<Monomial> addlist)
+	public Polynomial(ArrayList<Monomial> addlist)
 	{
 		name = "polynomial";
 		subElements = addlist;
 	}
-	public polynomial()
+	public Polynomial()
 	{
 		name = "polynomial";
 		subElements = new ArrayList<Monomial>();
@@ -50,7 +50,7 @@ public class polynomial extends Element
 		subElements.add(p);
 		this.sortElements();
 	}
-	public polynomial derive()
+	public Polynomial derive()
 	{
 		ArrayList<Monomial> walter = new ArrayList<Monomial>();
 		Monomial walt;
@@ -59,9 +59,9 @@ public class polynomial extends Element
 			walt = (Monomial) (p.derive());
 			walter.add(walt);
 		}
-		return new polynomial(walter);
+		return new Polynomial(walter);
 	}
-	public polynomial integrate()
+	public Polynomial integrate()
 	{
 		ArrayList<Monomial> freder = new ArrayList<Monomial>();
 		Monomial fred;
@@ -70,19 +70,19 @@ public class polynomial extends Element
 			fred = (Monomial) (p.integrate());
 			freder.add(fred);
 		}
-		return new polynomial(freder);
+		return new Polynomial(freder);
 	}
-	public constant substitute(double replace)
+	public Constant substitute(double replace)
 	{
 		//substitutes and evaluates the function for the given variable in place of "x"
 		double sum = 0.0;
 		for (Element p:subElements)
 		{
-			constant charlie = p.substitute(replace);
+			Constant charlie = p.substitute(replace);
 			sum += charlie.getValue();
 			//should return a constant function with one element e
 		}
-		constant mary = new constant(sum);
+		Constant mary = new Constant(sum);
 		return mary;
 	}
 	public String printME()

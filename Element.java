@@ -11,7 +11,7 @@ public abstract class Element
 		return this;
 	}
 	public abstract Element derive();
-	public abstract constant substitute(double replace);
+	public abstract Constant substitute(double replace);
 	public abstract Element integrate();
 	public String getName()
 	{

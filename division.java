@@ -1,19 +1,19 @@
 package PeanutCracker;
 
-public class division extends Element 
+public class Division extends Element 
 {
 	//element a divided by element b
 	Element top;
 	Element bottom;
-	public division(Element t, Element b)
+	public Division(Element t, Element b)
 	{
 		name = "division";
 		top = t;
 		bottom = b;
 	}
-	public division()
+	public Division()
 	{
-		this(new constant(0),new constant(1));
+		this(new Constant(0),new Constant(1));
 	}
 	public Element getTop() 
 	{
@@ -39,7 +39,7 @@ public class division extends Element
 	}
 
 	@Override
-	public constant substitute(double replace) 
+	public Constant substitute(double replace) 
 	{
 		// TODO Auto-generated method stub
 		return null;

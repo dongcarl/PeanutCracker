@@ -1,18 +1,18 @@
 package PeanutCracker;
 
-public class multiplication extends Element
+public class Multiplication extends Element
 {
 	//element a multiplied by element b
 	private Element left;
 	private Element right;
 	private boolean reduceable;
 
-	public multiplication()
+	public Multiplication()
 	{
-		left = new constant();
-		right = new constant();
+		left = new Constant();
+		right = new Constant();
 	}
-	public multiplication(Element l, Element r)
+	public Multiplication(Element l, Element r)
 	{
 		left = l;
 		right = r;
@@ -26,7 +26,7 @@ public class multiplication extends Element
 	}
 
 	@Override
-	public constant substitute(double replace) 
+	public Constant substitute(double replace) 
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -49,7 +49,7 @@ public class multiplication extends Element
 		{
 			if (left.getName().equals("constant") && right.getName().equals("constant"))
 			{
-				return new constant(left.substitute(1).getValue()+right.substitute(1).getValue());
+				return new Constant(left.substitute(1).getValue()+right.substitute(1).getValue());
 			}
 			else if (left.getName().equals("constant"))
 			{

@@ -12,11 +12,11 @@ public class Monomial extends Element implements Comparable<Monomial>
 		power = Math.abs(powe);
 		if (constant == 0)
 		{
-			new constant(0.0);
+			new Constant(0.0);
 		}
 		else if (power == 0)
 		{
-			new constant(constan);
+			new Constant(constan);
 		}
 	}
 	public Monomial()
@@ -52,9 +52,9 @@ public class Monomial extends Element implements Comparable<Monomial>
 		else return 0;
 	}
 	@Override
-	public constant substitute(double replace) 
+	public Constant substitute(double replace) 
 	{
-		return new constant(Math.pow(replace, power)*constant);
+		return new Constant(Math.pow(replace, power)*constant);
 	}
  
 }

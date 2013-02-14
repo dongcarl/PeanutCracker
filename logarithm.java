@@ -1,21 +1,21 @@
 package PeanutCracker;
 
-public class logarithm extends Element 
+public class Logarithm extends Element 
 {
 	//equivalent to log base base of (x) times constant
 	double base = Math.E;
 	double constant = 1;
-	public logarithm(double bas, double constan)
+	public Logarithm(double bas, double constan)
 	{
 		name = "logarithm";
 		base = bas;
 		constant = constan;
 	}
-	public logarithm(double bas)
+	public Logarithm(double bas)
 	{
 		this(bas, 1);
 	}
-	public logarithm()
+	public Logarithm()
 	{
 		this(Math.E);
 	}
@@ -29,8 +29,8 @@ public class logarithm extends Element
 		//TODO fix method
 				return null;
 	}
-	public constant substitute(double d)
+	public Constant substitute(double d)
 	{
-		return new constant((Math.pow(base, d)*constant));
+		return new Constant((Math.pow(base, d)*constant));
 	}
 }

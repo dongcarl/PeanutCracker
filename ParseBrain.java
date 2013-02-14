@@ -155,11 +155,11 @@ public class ParseBrain
 				if (search(str, "ln") != -1)
 				{
 					System.out.println("Converted to logarithm loge(x)");
-					return new logarithm();
+					return new Logarithm();
 				}
 			}
 			System.out.println("Converted to constant("+cons+")");
-			return new constant(cons);
+			return new Constant(cons);
 		}
 		else
 		{

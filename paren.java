@@ -2,10 +2,10 @@ package PeanutCracker;
 
 import java.util.ArrayList;
 
-public class paren extends Element
+public class Paren extends Element
 {
 	ArrayList<Element> subElements;
-	public paren(ArrayList<Element> a)
+	public Paren(ArrayList<Element> a)
 	{
 		subElements = a;
 		name = "paren";
@@ -18,7 +18,7 @@ public class paren extends Element
 	}
 
 	@Override
-	public constant substitute(double replace) {
+	public Constant substitute(double replace) {
 		// TODO Auto-generated method stub
 		return null;
 	}

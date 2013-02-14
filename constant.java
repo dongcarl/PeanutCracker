@@ -1,6 +1,6 @@
 package PeanutCracker;
 
-public class constant extends Element 
+public class Constant extends Element 
 {
 //	public constant(String nam, double val)
 //	{
@@ -11,12 +11,12 @@ public class constant extends Element
 //	{
 //		this(nam, 0);
 //	}
-	public constant(double val)
+	public Constant(double val)
 	{
 		value = val;
 		name = "constant";
 	}
-	public constant()
+	public Constant()
 	{
 		this(0);
 	}
@@ -32,7 +32,7 @@ public class constant extends Element
 	}
 	public Element derive()
 	{
-		return new constant(0.0);
+		return new Constant(0.0);
 	}
 	public Element integrate()
 	{
@@ -42,8 +42,8 @@ public class constant extends Element
 	{
 		return value;
 	}
-	public constant substitute(double replace) 
+	public Constant substitute(double replace) 
 	{
-		return new constant(value);
+		return new Constant(value);
 	}
 }
