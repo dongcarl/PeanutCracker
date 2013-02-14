@@ -8,7 +8,7 @@ public class ParseBrain
 	static ArrayList<Integer> eparen = new ArrayList<Integer>(); //list of end parens index
 	static ArrayList<Integer> iSplit = new ArrayList<Integer>(); //list of all of the split points for a function
 	static ArrayList<String> splits = new ArrayList<String>(); //list of the split strings between, parentheses, +, -, etc.
-	static ArrayList<Integer> operations = new ArrayList<Integer>(); //list of *, /, +, -
+	static ArrayList<Integer> operations = new ArrayList<Integer>(); //list of +, -
 	static ArrayList<Integer> equals = new ArrayList<Integer>(); //list of "="
 	static ArrayList<Integer> endFunc = new ArrayList<Integer>(); //the list of where we find ; to end functions
 	static ArrayList<Element> funcParts = new ArrayList<Element>(); //the parts of the function to send out
@@ -24,7 +24,7 @@ public class ParseBrain
 	}
 	public static void main(String[] args)
 	{
-		String testInputString = "((165x^2/ln(x+1))*x^2)";
+		String testInputString = "10*(1+x^2)+ln(x)";
 		System.out.println(testInputString);
 		parse(testInputString);
 		for (int i = 0; i < splits.size(); i++)	funcParts.add(convertString(splits.get(i)));
@@ -86,6 +86,18 @@ public class ParseBrain
 			}
 			i++;
 		}
+		//now look for + and - to finish split scan
+		for (int f = 0 ; f < str.length() ; f++)
+		{
+			if (str.substring(f,f+1).equals("+"))
+			{
+				operations.add(i);
+			}
+			else if (str.substring(f,f+1).equals("-"))
+			{
+				operations.add(-i);
+			}
+		}
 	}
 	public static void setPreElement(String str, int index)
 	{
@@ -105,8 +117,43 @@ public class ParseBrain
 	}
 	public static void copySplit(String inputString)
 	{
-		//split into strings that represent one element
+		//split into strings that represent one element (parens and others)
 		//aka parens, then anything between
+		//look for the first element, either to plus or to minus or to paren
+		//then end? or next element, either paren or plus or minus, repeat
+		ArrayList<Integer> sparenCopy = sparen;
+		ArrayList<Integer> eparenCopy = eparen;
+		ArrayList<Integer> opCopy = operations;
+		splits = new ArrayList<String>();
+		int i = 0;
+		int pLevel = 0;
+		int opLevel = 0;
+		int splitsLevel = 0;
+		while (i < inputString.length())
+		{
+			if (pLevel>=sparenCopy.size() || pLevel>=eparenCopy.size() || opLevel >= opCopy.size())
+			{
+				break;
+			}
+			//find the earliest item in the list (sparen or operation)
+			if (sparenCopy.get(pLevel)<opCopy.get(opLevel))
+			{
+				splits.add(inputString.substring(i,Math.abs(eparenCopy.get(pLevel)+1)));
+				System.out.println("Just added split - "+splits.get(splitsLevel));
+				i = eparenCopy.get(pLevel)+1;
+				pLevel++;
+				splitsLevel++;
+			}
+			else
+			{
+				splits.add(inputString.substring(i,opCopy.get(opLevel)+1));
+				System.out.println("just added split - "+splits.get(splitsLevel));
+				i = opCopy.get(opLevel)+1;
+				opLevel++;
+				splitsLevel++;
+			}
+		}
+		
 	}
 	public static String fixDelimiters(String str1)
 	{
