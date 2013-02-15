@@ -16,6 +16,8 @@ public class ParseBrain
 	static ArrayList<String> pparen = new ArrayList<String>(); //the operation before each element
 	static ArrayList<Integer> finElements = new ArrayList<Integer>();
 
+	//TODO make it recognize a basic function set with just that function, then move on to multi-element
+	
 	public ParseBrain()
 	{
 		preParen.add("ln"); preParen.add("sin"); preParen.add("cos"); preParen.add("tan");  
@@ -62,7 +64,7 @@ public class ParseBrain
 	}
 	public static void convertToElement(String str, int index)
 	{
-		Element newElement;
+		Element newElement = new Constant(0.0);
 		if (str.length()==0)
 		{
 			newElement = new Constant(0);
@@ -121,7 +123,7 @@ public class ParseBrain
 		{
 			newElement = new Constant(0);
 		}
-		funcParts.add(index, newElement);
+		funcParts.add(Math.min(funcParts.size(), index), newElement);
 	}
 	public static void scan(String str)
 	{
