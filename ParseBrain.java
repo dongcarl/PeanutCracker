@@ -14,146 +14,179 @@ public class ParseBrain
 	static ArrayList<Element> funcParts = new ArrayList<Element>(); //the parts of the function to send out
 	static ArrayList<String> preParen = new ArrayList<String>(); //the possible operations before each element
 	static ArrayList<String> pparen = new ArrayList<String>(); //the operation before each element
+	static ArrayList<Integer> finElements = new ArrayList<Integer>();
 
 	public ParseBrain()
 	{
 		preParen.add("ln"); preParen.add("sin"); preParen.add("cos"); preParen.add("tan");  
-			preParen.add("arcsin"); preParen.add("arccos"); preParen.add("arctan"); 
-			preParen.add("*"); preParen.add("/"); preParen.add("+"); preParen.add("-");
-			preParen.add("=");
+		preParen.add("arcsin"); preParen.add("arccos"); preParen.add("arctan"); 
+		preParen.add("*"); preParen.add("/"); preParen.add("+"); preParen.add("-");
+		preParen.add("=");
 	}
 	public static void main(String[] args)
 	{
-		String testInputString = "10*(1+x^2)+ln(x)";
+		String testInputString = "(*10;5ln);4;3x^2";
 		System.out.println(testInputString);
 		parse(testInputString);
-		for (int i = 0; i < splits.size(); i++)	funcParts.add(convertString(splits.get(i)));
+		//		for (int i = 0; i < splits.size(); i++)	funcParts.add(convertString(splits.get(i)));
 	}
 	public static Function parse(String rawInputString)
 	{
 		//takes in a raw string, and then convert it to a function
 		ArrayList<Element> basicFunction = new ArrayList<Element>();
 		Function jerrymander = new Function(basicFunction);
-
-		System.out.println("trying to fix delimiters");
-		String InputString = fixDelimiters(rawInputString);
-		System.out.println("Fixed delimiters "+InputString);
-		scanCopySplit(InputString);
-		
+		//System.out.println("trying to fix delimiters");
+		String InputString = rawInputString;//fixDelimiters(rawInputString);
+		//System.out.println("Fixed delimiters "+InputString);
+		scan(rawInputString);
+		split(rawInputString);
+		testSplits();
+		//at this point, the function has been split into its basic elements parens and added components
 		return jerrymander;
 	}
-	private static void scanCopySplit(String str)
+	public static void testSplits() 
 	{
-		scan(str);
-		copySplit(str);
-	}
-	private static void scan(String str)
-	{
-		//scan the first string for elements (paren, +, -)
-		//first scan for parentheses
-		int i = 0;
-		int parenLevel = 0;
-		int startParen = -1;
-		int endParen = -1;
-		boolean parenInProgress = false;
-		sparen = new ArrayList<Integer>();
-		eparen = new ArrayList<Integer>();
-		while (i < str.length())
+		for (String str : splits)
 		{
-			if (str.substring(i,i+1).equals("("))
+			int i = search(str,"(");
+			int index = splits.indexOf(str);
+			if (i == -1)
 			{
-				parenLevel = parenLevel+1;
-			}
-			if (str.substring(i,i+1).equals(")"))
-			{
-				parenLevel = parenLevel-1;
-			}
-			if (parenLevel == 0 && parenInProgress == false)
-			{
-				//happens during no paren
-				startParen = i;
-				parenInProgress = true;
-			}
-			else if (parenLevel == 0 && parenInProgress == true)
-			{
-				endParen = i;
-				parenInProgress = false;
-				sparen.add(startParen);
-				eparen.add(endParen);
-				setPreElement(str, startParen);
-				startParen = -1;
-				endParen = -1;
-			}
-			i++;
-		}
-		//now look for + and - to finish split scan
-		for (int f = 0 ; f < str.length() ; f++)
-		{
-			if (str.substring(f,f+1).equals("+"))
-			{
-				operations.add(i);
-			}
-			else if (str.substring(f,f+1).equals("-"))
-			{
-				operations.add(-i);
-			}
-		}
-	}
-	public static void setPreElement(String str, int index)
-	{
-		for (String func : preParen)
-		{
-			String add = "+";
-			if (index>func.length())
-			{
-				String ssub = str.substring(index-func.length(),index);
-				if (ssub.equals(func))
-				{
-					add = func;
-				}
-			}
-			pparen.add(add);
-		}
-	}
-	public static void copySplit(String inputString)
-	{
-		//split into strings that represent one element (parens and others)
-		//aka parens, then anything between
-		//look for the first element, either to plus or to minus or to paren
-		//then end? or next element, either paren or plus or minus, repeat
-		ArrayList<Integer> sparenCopy = sparen;
-		ArrayList<Integer> eparenCopy = eparen;
-		ArrayList<Integer> opCopy = operations;
-		splits = new ArrayList<String>();
-		int i = 0;
-		int pLevel = 0;
-		int opLevel = 0;
-		int splitsLevel = 0;
-		while (i < inputString.length())
-		{
-			if (pLevel>=sparenCopy.size() || pLevel>=eparenCopy.size() || opLevel >= opCopy.size())
-			{
-				break;
-			}
-			//find the earliest item in the list (sparen or operation)
-			if (sparenCopy.get(pLevel)<opCopy.get(opLevel))
-			{
-				splits.add(inputString.substring(i,Math.abs(eparenCopy.get(pLevel)+1)));
-				System.out.println("Just added split - "+splits.get(splitsLevel));
-				i = eparenCopy.get(pLevel)+1;
-				pLevel++;
-				splitsLevel++;
+				convertToElement(str, index);
 			}
 			else
 			{
-				splits.add(inputString.substring(i,opCopy.get(opLevel)+1));
-				System.out.println("just added split - "+splits.get(splitsLevel));
-				i = opCopy.get(opLevel)+1;
-				opLevel++;
-				splitsLevel++;
+				//TODO fixParens(str, index);
 			}
 		}
-		
+	}
+	public static void convertToElement(String str, int index)
+	{
+		Element newElement;
+		if (str.length()==0)
+		{
+			newElement = new Constant(0);
+		}
+		int search = search(str, "ln");
+		if (search!=-1)
+		{
+		//if it matches the natural log format [constant]ln[ignored] make it a ln
+			if (search(str, "ln")==0)
+			{
+				newElement = new Logarithm(Math.E);
+			}
+			else
+			{
+				double con = 1;
+				try 
+				{
+					con = Double.parseDouble(str.substring(0,search(str, "ln")));
+				}
+				catch(NumberFormatException nfe)
+				{
+					System.out.println("Syntax error");
+				}
+				newElement = new Logarithm(Math.E, con);
+			}
+		}
+		search = search(str, "x^");
+		if (search!=-1)
+		{
+			//if it matches the pattern[constant]x^[power]
+			String powerString = "";
+			double power;
+			try
+			{
+				powerString = str.substring(search+2);
+			}
+			catch(IndexOutOfBoundsException ioobe)
+			{
+				power = 0;
+				System.out.println("Syntax error");
+			}
+			try
+			{
+				power = Double.parseDouble(powerString);
+			}
+			catch(NumberFormatException nfe)
+			{
+				power = 0;
+			}
+			if (search==0)
+			{
+				newElement = new Monomial(1,(int) power);
+			}
+		}
+		else
+		{
+			newElement = new Constant(0);
+		}
+		funcParts.add(index, newElement);
+	}
+	public static void scan(String str)
+	{
+		int i = 0;
+		int inParen = 0;
+		iSplit = new ArrayList<Integer>();
+		while(i < str.length())
+		{
+			if (inParen == 0)
+			{
+				if(str.substring(i,i+1).equals("("))
+				{
+					inParen++;
+				}
+				else if(str.substring(i,i+1).equals(")"))
+				{
+					inParen--;
+				}
+				else if (str.substring(i,i+1).equals(";"))
+				{
+					iSplit.add(i);
+					System.out.println("; found at "+i);
+				}
+			}
+			else
+			{
+				if(str.substring(i,i+1).equals("("))
+				{
+					inParen++;
+				}
+				else if(str.substring(i,i+1).equals(")"))
+				{
+					inParen--;
+				}
+			}
+			System.out.println("inParen = "+inParen+" , i = "+i);
+			i++;
+		}
+	}
+	public static void split(String str)
+	{
+		int i = 0;
+		int index = 0;
+		while(i<iSplit.size())
+		{
+			System.out.println("iSplit.get(i) = "+iSplit.get(i));
+			splits.add(str.substring(index, iSplit.get(i)));
+			System.out.println("string = "+str.substring(index, iSplit.get(i)));
+			index = iSplit.get(i)+1;
+			i++;
+		}
+		splits.add(str.substring(iSplit.get(i-1)+1));
+		String printstr = "";
+		for (String s :splits)
+		{
+			printstr += " + "+s;
+		}
+		System.out.println(str);
+		String printstr2 = "";
+		for (Integer im : iSplit)
+		{
+			printstr2 += " "+im;
+		}
+		System.out.println(printstr2.substring(3));
+		System.out.println(printstr.substring(3));
 	}
 	public static String fixDelimiters(String str1)
 	{
@@ -185,52 +218,6 @@ public class ParseBrain
 				}
 			}
 			return str;
-		}
-	}
-	public static Element convertString(String str)
-	{
-		if (search(str, "x") == -1)
-		{
-			//if the string str doesn't have an x in it
-			double cons = 0;
-			try
-			{
-				cons = Double.parseDouble(str);
-			}
-			catch(NumberFormatException nfe)
-			{
-				if (search(str, "ln") != -1)
-				{
-					System.out.println("Converted to logarithm loge(x)");
-					return new Logarithm();
-				}
-			}
-			System.out.println("Converted to constant("+cons+")");
-			return new Constant(cons);
-		}
-		else
-		{
-			if (search(str, "x^") != -1)
-			{
-				int startIndex = search(str, "x^")+2;
-				String substr = str.substring(startIndex);
-				int power;
-				try
-				{
-					power = Integer.parseInt(substr);
-				}
-				catch(NumberFormatException nfe)
-				{
-					power = 0;
-				}
-				System.out.println("Converted to polyElement x^"+power);
-				return new Monomial(1,power);
-			}
-			else
-			{
-				System.out.println("Converted to polyElement x");
-				return new Monomial(1,1);
-			}
 		}
 	}
 	public static int search(String str, String target)
