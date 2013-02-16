@@ -23,28 +23,93 @@ public class MasterMind implements Operator
 		MasterMind cake = new MasterMind(new ControlCenter());
 		ArrayList<Element> jake = new ArrayList<Element>();
 		Polynomial polly = new Polynomial();
-		polly.addElement(new Monomial(15, 4));
-		polly.addElement(new Monomial(3, 6));
-		polly.addElement(new Monomial(3, 1));
-		polly.addElement(new Monomial(.5 , (int) .5));
+		polly.addElement(new Monomial(1, 1));
+		//polly.addElement(new Monomial(3, 6));
+		//polly.addElement(new Monomial(3, 1));
+		//polly.addElement(new Monomial(.5 , (int) .5));
 		jake.add(polly);
 		Function terry = new Function(jake);
-		terry = cake.operate(terry);
 		Window witherspoon = new Window();
-		ArrayList<ArrayList<Double>> masm = getPoints(terry, witherspoon);
-		ArrayList<Double> xp = masm.get(0);
-		ArrayList<Double> yp = masm.get(1);
-		for (int i = 0; i < xp.size(); i++)
+		ArrayList<Double> values = processFunction(terry, 0, witherspoon);
+		double dou = 0;
+		int val = 0;
+		System.out.println("values");
+		for (Double d : values)
 		{
-			double xpoint = xp.get(i);
-			double ypoint = yp.get(i);
-			System.out.print(""+xpoint+","+ypoint+" ");
+			dou = (double) d;
+			val = (int) dou;
+			System.out.print(" "+val);
+		}
+		ArrayList<Double> derivs = processFunction(terry, -1, witherspoon);
+		System.out.println("\nslopes");
+		for (Double e : derivs)
+		{
+			dou = (double) e;
+			val = (int) dou;
+			System.out.print(" "+val);
+		}
+		ArrayList<Double> integs = processFunction(terry, 1, witherspoon);
+		System.out.println("\nintegs");
+		for (Double f : integs)
+		{
+			dou = (double) f;
+			val = (int) dou;
+			System.out.print(" "+val);
 		}
 	}
 	public MasterMind(ControlCenter cathy)
 	{
 		//The constructor takes in a ControlCenter to pass messages to
 		communication = cathy;
+	}
+	public static ArrayList<Double> processFunction(Function func, int operation, Window walrus)
+	{
+		//Operation 0 = none, 1 = integrate, -1 = derive
+		ArrayList<Double> yPoints = new ArrayList<Double>();
+		walrus.getXmin();
+		walrus.getXmax();
+		walrus.getXres(); //units per pixel
+		double xrange = walrus.getXmax()-walrus.getXmin();
+		double xcount = xrange/walrus.getXres();
+		for (double x = walrus.getXmin(); x<=walrus.getXmax(); x+=walrus.getXres())
+		{
+			yPoints.add(substitute(func,x));
+		}
+		if (operation == 0)
+		{
+			return yPoints;
+		}
+//		return yPoints;
+		else if (operation == 1)
+		{
+			//now I'm looking to estimate the integral
+			System.out.println("\nYou are now in the twilight zone");
+			ArrayList<Double> integral = new ArrayList<Double>();
+			double width = walrus.getXres();
+			double sum = 0;
+			for (Double y : yPoints)
+			{
+				sum += y;
+				System.out.print(" "+sum);
+				integral.add(sum);
+			}
+		}
+		else if (operation == -1)
+		{
+			//now estimating the slope
+			System.out.println("\nYou are now in the twifright zone");
+			ArrayList<Double> derivative = new ArrayList<Double>();
+			double width = walrus.getXres();
+			double slope = 0;
+			for (int i = 0; i < yPoints.size() - 1 ; i++)
+			{
+				double rise = yPoints.get(i+1)-yPoints.get(i);
+				slope = rise/width;
+				System.out.print(""+slope);
+				derivative.add(slope);
+			}
+		}
+		return yPoints;
 	}
 	public Function operate(Function dave)
 	{
