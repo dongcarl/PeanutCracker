@@ -25,6 +25,27 @@ public class Message
 		//return the message, possibly for copying
 		return this;
 	}
+	public Message reply(Object ObjectToPass, String StringToPass, Message original)
+	{
+		Message reply = new Message(ObjectToPass, StringToPass, original.getDestination(), original.getOrigin());
+		return reply;
+	}
+	public String getDestination() 
+	{
+		return destination;
+	}
+	public void setDestination(String destination) 
+	{
+		this.destination = destination;
+	}
+	public String getOrigin() 
+	{
+		return origin;
+	}
+	public void setOrigin(String origin) 
+	{
+		this.origin = origin;
+	}
 	public Object getMain() 
 	{
 		//return the object passed, including an Event, Window or otherwise
