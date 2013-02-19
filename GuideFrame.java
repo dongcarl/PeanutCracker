@@ -2,8 +2,6 @@ package PeanutCracker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,31 +14,59 @@ import java.awt.event.MouseListener;
  */
 public class GuideFrame extends JFrame implements MouseListener
 {
-	public static void main(String args[])
-	{
-		GuideFrame n = new GuideFrame(new Rectangle(100, 100, 1000, 1000));
-	}
+//	public static void main(String args[])
+//	{
+//		GuideFrame n = new GuideFrame(new Rectangle(100, 100, 1000, 1000));
+//	}
 
 	public static JPanel portalPanel;
-	public GuideFrame(Rectangle bounds)
+
+
+	public GuideFrame()
 	{
-		JFrame guide = new JFrame();
-		guide.setTitle("Portal");
-		guide.setBounds(bounds);
-		guide.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 
-		GuideMainPanel portalPanel = new GuideMainPanel();
 
-		guide.add(portalPanel);
-		guide.setVisible(true);
+		setTitle("Portal");
+		setSize(510, 95);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+// Determine the new location of the window
+		int w = this.getSize().width;
+		int h = this.getSize().height;
+		int x = (dim.width-w)/2;
+		int y = (dim.height-h)/2;
+
+// Move the window
+		this.setLocation(x, y);
+
+
+		GuidePanel portalPanel = new GuidePanel();
+		portalPanel.setName("shit");
+
+		add(portalPanel);
+
+
+		for (final JButton j : GuidePanel.bList)
+		{
+			j.addMouseListener(this);
+		}
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		//To change body of implemented methods use File | Settings | File Templates.
+		Component theChosenOne = e.getComponent();
+
+		System.out.println(theChosenOne.getName());
+
+		remove(portalPanel);
+
+		GuideChangeSettings guidance = new GuideChangeSettings(theChosenOne.getName());
+		add(guidance);
 	}
 
 	@Override
@@ -52,49 +78,7 @@ public class GuideFrame extends JFrame implements MouseListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		Component theChosenOne = e.getComponent();
-
-		System.out.println(theChosenOne);
-
-		if (theChosenOne.getName() == "Cartesian")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Polar")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Submit")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Parametric")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Limit")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Derivative")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Integrate")
-		{
-
-		}
-
-		else if (theChosenOne.getName() == "Differential")
-		{
-
-		}//To change body of implemented methods use File | Settings | File Templates.
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	@Override

@@ -1,14 +1,10 @@
 package PeanutCracker;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.WindowEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,32 +15,66 @@ import java.io.IOException;
  */
 public class WelcomeScreen extends JFrame implements MouseListener
 {
+	public JButton got;
+	public JButton guide;
+
 	public WelcomeScreen()
 	{
-		JFrame Welcome = new JFrame();
-		Welcome.setVisible(true);
-		Welcome.setLayout(new FlowLayout());
-		Welcome.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-		JButton got = new JButton("I Got This");
+		this.setSize(270, 60);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+// Determine the new location of the window
+		int w = this.getSize().width;
+		int h = this.getSize().height;
+		int x = (dim.width-w)/2;
+		int y = (dim.height-h)/2;
+
+// Move the window
+		this.setLocation(x, y);
+
+		setLayout(new FlowLayout());
+
+		got = new JButton("I Got This");
 		got.setName("I GOT THIS");
+		got.addMouseListener(this);
+		add(got);
 
-		JButton guide = new JButton("Guide Me Master");
+
+		guide = new JButton("Guide Me Master");
 		guide.setName("GUIDE ME MASTER");
+		guide.addMouseListener(this);
+		add(guide);
 
 
-	}
-
-	public static void main (String args[])
-	{
-		WelcomeScreen welcome = new WelcomeScreen();
 
 	}
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		//To change body of implemented methods use File | Settings | File Templates.
+		Component theChosenOne = e.getComponent();
+
+		if (theChosenOne.getName() == "I GOT THIS")
+		{
+			GraphFrame newFrame = new GraphFrame();
+			newFrame.setVisible(true);
+		}
+
+		else if (theChosenOne.getName() == "GUIDE ME MASTER")
+		{
+			this.dispose();
+			GuideFrame newGuide = new GuideFrame();
+			newGuide.setVisible(true);
+		}
+
+		else
+		{
+			System.out.println("WHADDAYA WANT FROM ME!");
+		}//To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	@Override
@@ -56,25 +86,7 @@ public class WelcomeScreen extends JFrame implements MouseListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		Component theChosenOne = e.getComponent();
 
-		if (theChosenOne.getName() == "I GOT THIS")
-		{
-			GraphFrame newFrame = new GraphFrame();
-			this.setVisible(false);
-
-		}
-
-		else if (theChosenOne.getName() == "GUIDE ME MASTER")
-		{
-			GuideFrame newGuide = new GuideFrame();
-			this.setVisible(false);
-		}
-
-		else
-		{
-			System.out.println("WHADDAYA WANT FROM ME!");
-		}
 
 	}
 
