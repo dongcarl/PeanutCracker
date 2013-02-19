@@ -1,5 +1,6 @@
 package PeanutCracker;
 
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +65,7 @@ public class MasterMind implements Operator
 	}
 	public void read(Message mFunc, Message mWind)
 	{
-		if (mFunc.getMessage().equalsIgnoreCase("error"))
+		if (mFunc.getMessage().equalsIgnoreCase("error") || mFunc.getMessage().equalsIgnoreCase("error"))
 		{
 			//do nothing if it returns an error
 		}
@@ -82,7 +83,46 @@ public class MasterMind implements Operator
 		{
 			//if the object that is passed is a Function
 			//TODO check for other instances, including a process function
-			
+			//if we are looking at "operation " length string that isn't others processed before
+			if (mFunc.getMessage().length()<11)
+			{
+				//if there is no message long enough
+				mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+			}
+			else if (mFunc.getMessage().equalsIgnoreCase("operate "))
+			{
+				//if it is asking to substitute try to parse a double after substitute
+				String parseThis = "";
+				int parsedThis = 0;
+				Window wally;
+				try //to make this a string of a double at the end of the string
+				{
+					parseThis = mFunc.getMessage().substring(8);
+				}
+				catch (IndexOutOfBoundsException ioobe)
+				{
+					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+				}
+				try //to make that cut string a double
+				{
+					parsedThis = Integer.parseInt(parseThis);
+				}
+				catch (NumberFormatException nfe)
+				{
+					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+				}
+				try
+				{
+					wally = (Window) mWind.getMain();
+				}
+				catch ()
+				{
+					wally = new Window();
+				}
+				Function op = (Function) mFunc.getMain();
+				//reply with an answer
+				mFunc.reply(processFunction(op, parsedThis, wally), "answer", mFunc.getFull());
+			}
 			//if we are looking at "substitution " length string that isn't others processed before
 			if (mFunc.getMessage().length()<11)
 			{
