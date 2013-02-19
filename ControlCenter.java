@@ -44,16 +44,16 @@ public class ControlCenter
 			//the message is sent to [co]ntrolcenter
 			read(m);
 		}
-		else if (m.getDestination().substring(0, 2).equalsIgnoreCase("Me"))
-		{
-			//the message is sent to [me]nu brain
-			a.read(m);
-		}
-		else if (m.getDestination().substring(0,2).equalsIgnoreCase("Di"))
-		{
-			//the message is sent to [di]play brain
-			c.read(m);
-		}
+//		else if (m.getDestination().substring(0, 2).equalsIgnoreCase("Me"))
+//		{
+//			//the message is sent to [me]nu brain
+//			a.read(m);
+//		}
+//		else if (m.getDestination().substring(0,2).equalsIgnoreCase("Di"))
+//		{
+//			//the message is sent to [di]play brain
+//			c.read(m);
+//		}
 		else
 		{
 			this.read(m);

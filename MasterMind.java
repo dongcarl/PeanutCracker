@@ -111,14 +111,14 @@ public class MasterMind implements Operator
 				{
 					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
 				}
-				try
-				{
+//				try
+//				{
 					wally = (Window) mWind.getMain();
-				}
-				catch ()
-				{
-					wally = new Window();
-				}
+//				}
+//				catch ()
+//				{
+//					wally = new Window();
+//				}
 				Function op = (Function) mFunc.getMain();
 				//reply with an answer
 				mFunc.reply(processFunction(op, parsedThis, wally), "answer", mFunc.getFull());
