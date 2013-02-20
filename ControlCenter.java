@@ -9,20 +9,20 @@ package PeanutCracker;
  */
 public class ControlCenter
 {
-	MenuBrain a;
+	Runner a;
 	MasterMind b;
-	DisplayBrain c;
+	GraphFrame c;
 	public static void main(String[] args)
 	{
 		ControlCenter main = new ControlCenter();
 	}
 	public ControlCenter()
 	{
-		a = new MenuBrain();
 		b = new MasterMind(this); //each brain should instantiate with control center info, so that messages can be passed
-		c = new DisplayBrain(null, null, null);
+		c = new GraphFrame();
+		a = new Runner();
 	}
-	public ControlCenter(MenuBrain alpha, MasterMind beta, DisplayBrain cappa)
+	public ControlCenter(Runner alpha, MasterMind beta, GraphFrame cappa)
 	{
 		a = alpha;
 		b = beta;
@@ -37,7 +37,7 @@ public class ControlCenter
 		else if (m.getDestination().length() < 2)
 		{
 			//if the message destination is of improper length, return to sender with an error message
-			m.reply(m.getMain(), "error", m.getFull());
+			m.errorReply(m);
 		}
 		else if (m.getDestination().substring(0,2).equalsIgnoreCase("Co"))
 		{
@@ -69,7 +69,7 @@ public class ControlCenter
 		else if (m1.getDestination().length() < 2)
 		{
 			//if the message destination is of improper length, return to sender with an error message
-			m1.reply(m1.getMain(), "error", m1.getFull());
+			m1.errorReply(m1);
 		}
 		else if (m1.getDestination().substring(0, 2).equalsIgnoreCase("Ma"))
 		{
@@ -78,7 +78,7 @@ public class ControlCenter
 		}
 		else
 		{
-			m1.reply(m1.getMain(), "error", m1.getFull());
+			m1.errorReply(m1);
 		}
 	}
 	public void read(Message m)

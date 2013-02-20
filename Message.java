@@ -13,22 +13,32 @@ public class Message
 	String message;
 	String destination;
 	String origin;
-	public Message(Object ObjectToPass, String StringToPass, String From, String To)
+	ControlCenter sendToHere;
+	public Message(Object ObjectToPass, String StringToPass, String From, String To, ControlCenter sendHere)
 	{
 		main = ObjectToPass;
 		message = StringToPass;
 		destination = To;
 		origin = From;
+		sendToHere = sendHere;
 	}
 	public Message getFull()
 	{
 		//return the message, possibly for copying
 		return this;
 	}
-	public Message reply(Object ObjectToPass, String StringToPass, Message original)
+	public void reply(Object ObjectToPass, String StringToPass, Message original, ControlCenter sendToHere)
 	{
-		Message reply = new Message(ObjectToPass, StringToPass, original.getDestination(), original.getOrigin());
-		return reply;
+		Message reply = new Message(ObjectToPass, StringToPass, original.getDestination(), original.getOrigin(), sendToHere);
+		sendToHere.sendMessage(reply);
+	}
+	public void errorReply(Message m)
+	{
+		reply(m.getMain() , "error", m.getFull(), m.getControlCenter());
+	}
+	public ControlCenter getControlCenter()
+	{
+		return sendToHere;
 	}
 	public String getDestination() 
 	{

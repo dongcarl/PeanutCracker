@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 
 //TODO write a zeros function
-public class MasterMind implements Operator
+public class MasterMind implements Operator, Controllable
 {
 	Double substitute;
 	String modFunction;
@@ -72,12 +72,12 @@ public class MasterMind implements Operator
 		else if (mFunc.getDestination().length() < 2)
 		{
 			//if the message destination is of improper length, return to sender with an error message
-			mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+			mFunc.errorReply(mFunc);
 		}
 		else if (!mFunc.getDestination().substring(0,2).equalsIgnoreCase("Ma"))
 		{
 			//if the message isn't addressed to [Ma]stermind return an error message
-			mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+			mFunc.errorReply(mFunc);
 		}
 		else if (mFunc.getMain().getClass().equals(new Function().getClass()))
 		{
@@ -87,7 +87,7 @@ public class MasterMind implements Operator
 			if (mFunc.getMessage().length()<11)
 			{
 				//if there is no message long enough
-				mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+				mFunc.errorReply(mFunc);
 			}
 			else if (mFunc.getMessage().equalsIgnoreCase("operate "))
 			{
@@ -101,7 +101,7 @@ public class MasterMind implements Operator
 				}
 				catch (IndexOutOfBoundsException ioobe)
 				{
-					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+					mFunc.errorReply(mFunc);
 				}
 				try //to make that cut string a double
 				{
@@ -109,7 +109,7 @@ public class MasterMind implements Operator
 				}
 				catch (NumberFormatException nfe)
 				{
-					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
+					mFunc.errorReply(mFunc);
 				}
 //				try
 //				{
@@ -121,7 +121,7 @@ public class MasterMind implements Operator
 //				}
 				Function op = (Function) mFunc.getMain();
 				//reply with an answer
-				mFunc.reply(processFunction(op, parsedThis, wally), "answer", mFunc.getFull());
+				mFunc.reply(processFunction(op, parsedThis, wally), "answer", mFunc.getFull(), communication);
 			}
 			//if we are looking at "substitution " length string that isn't others processed before
 			if (mFunc.getMessage().length()<11)
@@ -285,5 +285,23 @@ public class MasterMind implements Operator
 			e = e.derive();
 		}
 		return mod;
+	}
+	@Override
+	public void read(Message m1) 
+	{
+		// TODO Auto-generated method stub
+		m1.errorReply(m1);
+	}
+	@Override
+	public void read(Message m1, Message m2, Message m3) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void read(Message m1, Message m2, Message m3, Message m4) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
