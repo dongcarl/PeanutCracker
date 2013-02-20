@@ -17,10 +17,11 @@ public class MasterMind implements Operator
 {
 	Double substitute;
 	String modFunction;
-	ArrayList<Double> xpoints = new ArrayList<Double>();
+	public static ArrayList<Double> xPoints = new ArrayList<Double>();
+	public static ArrayList<Double> yPoints = new ArrayList<Double>();
+	
 	public static void main(String[] args)
 	{
-		MasterMind cake = new MasterMind();
 		ArrayList<Element> jake = new ArrayList<Element>();
 		Polynomial polly = new Polynomial();
 		polly.addElement(new Monomial(1, 1));
@@ -57,9 +58,34 @@ public class MasterMind implements Operator
 			System.out.print(" "+val);
 		}
 	}
-	public MasterMind()
+	public MasterMind(Function func, int operation, Window walrus)
 	{
 		//The constructor takes in a ControlCenter to pass messages to
+		mailToGraph(processXPoints(func, walrus), processFunction(func, operation, walrus));
+	}
+	public static Window optimizeWindow(Window walrus)
+	{
+		walrus.getXmax();
+		walrus.getXmin();
+		walrus.getXres();
+		walrus.getYmax();
+		walrus.getYmin();
+		walrus.getYres();
+		Window wammy = new Window();
+		return wammy;
+	}
+	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints)
+	{
+		new GraphFrame(xpoints, ypoints);
+	}
+	public static ArrayList<Double> processXPoints(Function func, Window walrus)
+	{
+		xPoints = new ArrayList<Double>();
+		for (double x = walrus.getXmin(); x<=walrus.getXmax(); x+=walrus.getXres())
+		{
+			xPoints.add(x);
+		}
+		return xPoints;
 	}
 	public static ArrayList<Double> processFunction(Function func, int operation, Window walrus)
 	{
