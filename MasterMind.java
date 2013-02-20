@@ -13,15 +13,14 @@ import java.util.ArrayList;
  */
 
 //TODO write a zeros function
-public class MasterMind implements Operator, Controllable
+public class MasterMind implements Operator
 {
 	Double substitute;
 	String modFunction;
-	ControlCenter communication;
 	ArrayList<Double> xpoints = new ArrayList<Double>();
 	public static void main(String[] args)
 	{
-		MasterMind cake = new MasterMind(new ControlCenter());
+		MasterMind cake = new MasterMind();
 		ArrayList<Element> jake = new ArrayList<Element>();
 		Polynomial polly = new Polynomial();
 		polly.addElement(new Monomial(1, 1));
@@ -58,103 +57,9 @@ public class MasterMind implements Operator, Controllable
 			System.out.print(" "+val);
 		}
 	}
-	public MasterMind(ControlCenter cathy)
+	public MasterMind()
 	{
 		//The constructor takes in a ControlCenter to pass messages to
-		communication = cathy;
-	}
-	public void read(Message mFunc, Message mWind)
-	{
-		if (mFunc.getMessage().equalsIgnoreCase("error") || mFunc.getMessage().equalsIgnoreCase("error"))
-		{
-			//do nothing if it returns an error
-		}
-		else if (mFunc.getDestination().length() < 2)
-		{
-			//if the message destination is of improper length, return to sender with an error message
-			mFunc.errorReply(mFunc);
-		}
-		else if (!mFunc.getDestination().substring(0,2).equalsIgnoreCase("Ma"))
-		{
-			//if the message isn't addressed to [Ma]stermind return an error message
-			mFunc.errorReply(mFunc);
-		}
-		else if (mFunc.getMain().getClass().equals(new Function().getClass()))
-		{
-			//if the object that is passed is a Function
-			//TODO check for other instances, including a process function
-			//if we are looking at "operation " length string that isn't others processed before
-			if (mFunc.getMessage().length()<11)
-			{
-				//if there is no message long enough
-				mFunc.errorReply(mFunc);
-			}
-			else if (mFunc.getMessage().equalsIgnoreCase("operate "))
-			{
-				//if it is asking to substitute try to parse a double after substitute
-				String parseThis = "";
-				int parsedThis = 0;
-				Window wally;
-				try //to make this a string of a double at the end of the string
-				{
-					parseThis = mFunc.getMessage().substring(8);
-				}
-				catch (IndexOutOfBoundsException ioobe)
-				{
-					mFunc.errorReply(mFunc);
-				}
-				try //to make that cut string a double
-				{
-					parsedThis = Integer.parseInt(parseThis);
-				}
-				catch (NumberFormatException nfe)
-				{
-					mFunc.errorReply(mFunc);
-				}
-//				try
-//				{
-					wally = (Window) mWind.getMain();
-//				}
-//				catch ()
-//				{
-//					wally = new Window();
-//				}
-				Function op = (Function) mFunc.getMain();
-				//reply with an answer
-				mFunc.reply(processFunction(op, parsedThis, wally), "answer", mFunc.getFull(), communication);
-			}
-			//if we are looking at "substitution " length string that isn't others processed before
-			if (mFunc.getMessage().length()<11)
-			{
-				//if there is no message long enough
-				mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
-			}
-			else if (mFunc.getMessage().equalsIgnoreCase("substitute "))
-			{
-				//if it is asking to substitute try to parse a double after substitute
-				String parseThis = "";
-				double parsedThis = 0;
-				try //to make this a string of a double at the end of the string
-				{
-					parseThis = mFunc.getMessage().substring(11);
-				}
-				catch (IndexOutOfBoundsException ioobe)
-				{
-					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
-				}
-				try //to make that cut string a double
-				{
-					parsedThis = Double.parseDouble(parseThis);
-				}
-				catch (NumberFormatException nfe)
-				{
-					mFunc.reply(mFunc.getMain(), "error", mFunc.getFull());
-				}
-				Function op = (Function) mFunc.getMain();
-				//reply with an answer
-				mFunc.reply(substitute(op, parsedThis), "answer", mFunc.getFull());
-			}
-		}
 	}
 	public static ArrayList<Double> processFunction(Function func, int operation, Window walrus)
 	{
@@ -285,23 +190,5 @@ public class MasterMind implements Operator, Controllable
 			e = e.derive();
 		}
 		return mod;
-	}
-	@Override
-	public void read(Message m1) 
-	{
-		// TODO Auto-generated method stub
-		m1.errorReply(m1);
-	}
-	@Override
-	public void read(Message m1, Message m2, Message m3) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void read(Message m1, Message m2, Message m3, Message m4) 
-	{
-		// TODO Auto-generated method stub
-		
 	}
 }
