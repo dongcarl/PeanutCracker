@@ -2,6 +2,7 @@ package PeanutCracker;
 
 import java.io.ObjectStreamException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +28,7 @@ public class MasterMind implements Operator
 		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
 		//add a new monomial to the polynomial
-		polly.addElement(new Monomial(1, 1));
+		polly.addElement(new Monomial(1, 2));
 		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
@@ -36,8 +37,8 @@ public class MasterMind implements Operator
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
 		//make a new window
-		Window witherspoon = new Window();
-		MasterMind mindy = new MasterMind(terry, 1, witherspoon);
+		Window witherspoon = new Window(-10, 10, .1, -10, 10, .1);
+		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 		{
 			double d1 = d;
@@ -128,7 +129,49 @@ public class MasterMind implements Operator
 	}
 	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints)
 	{
-		new GraphFrame(xpoints, ypoints);
+		new GraphFrame(adjustToPanelX(500, xpoints), adjustToPanelY(500, ypoints));
+	}
+	public static double[] returnOrigin(int xsize, int ysize, ArrayList<Double> xpoints, ArrayList<Double> ypoints)
+	{
+		//returns a double[] with the first value as x, second value as y
+		double[] originCoords = new double[2];
+		double xmax = Collections.max(xpoints);
+		double xmin = Collections.min(xpoints);
+		double revised = ((500*0)/(xmax-xmin))+(xsize/2);
+		originCoords[0] = revised;
+		double ymax = Collections.max(ypoints);
+		double ymin = Collections.min(ypoints);
+		revised = -((500*0)/(ymax-ymin))+(ysize/2);
+		originCoords[1] = revised;
+		return originCoords;
+	}
+	public static ArrayList<Double> adjustToPanelX(int xsize, ArrayList<Double> xpoints)
+	{
+		//xsize of the display window in pixels
+		//arraylist of the xpoint that will be graphed
+		double xmax = Collections.max(xpoints);
+		double xmin = Collections.min(xpoints);
+		ArrayList<Double> adjX = new ArrayList<Double>();
+		for (Double xc : xpoints)
+		{
+			double revised = ((500*xc)/(xmax-xmin))+(xsize/2);
+			adjX.add(revised);
+		}
+		return adjX;
+	}
+	public static ArrayList<Double> adjustToPanelY(int ysize, ArrayList<Double> ypoints)
+	{
+		//ysize of the display window in pixels
+		//arraylist of the ypoints that will be graphed
+		double ymax = Collections.max(ypoints);
+		double ymin = Collections.min(ypoints);
+		ArrayList<Double> adjY = new ArrayList<Double>();
+		for (Double yc : ypoints)
+		{
+			double revised = -((500*yc)/(ymax-ymin))+(ysize/2);
+			adjY.add(revised);
+		}
+		return adjY;
 	}
 	public static ArrayList<Double> processXPoints(Function func, Window walrus)
 	{
