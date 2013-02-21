@@ -32,46 +32,46 @@ public class MasterMind implements Operator
 		Function terry = new Function(jake);
 		Window witherspoon = new Window();
 		ArrayList<Double> values = processFunction(terry, 0, witherspoon);
-		double dou = 0;
-		int val = 0;
-		System.out.println("values");
-		for (Double d : values)
-		{
-			dou = (double) d;
-			val = (int) dou;
-			System.out.print(" "+val);
-		}
-		ArrayList<Double> derivs = processFunction(terry, -1, witherspoon);
-		System.out.println("\nslopes");
-		for (Double e : derivs)
-		{
-			dou = (double) e;
-			val = (int) dou;
-			System.out.print(" "+val);
-		}
-		ArrayList<Double> integs = processFunction(terry, 1, witherspoon);
-		System.out.println("\nintegs");
-		for (Double f : integs)
-		{
-			dou = (double) f;
-			val = (int) dou;
-			System.out.print(" "+val);
-		}
+		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
 		//The constructor takes in a ControlCenter to pass messages to
 		mailToGraph(processXPoints(func, walrus), processFunction(func, operation, walrus));
 	}
-	public static Window optimizeWindow(Window walrus)
+	public static Window optimizeWindow(ArrayList<Double> x, ArrayList<Double> y, Window walrus)
 	{
-		walrus.getXmax();
-		walrus.getXmin();
-		walrus.getXres();
-		walrus.getYmax();
-		walrus.getYmin();
-		walrus.getYres();
-		Window wammy = new Window();
+		double xmax = walrus.getXmax();
+		double xmin = walrus.getXmin();
+		double xres = walrus.getXres();
+		double ymax = walrus.getYmax();
+		double ymin = walrus.getYmin();
+		double yres = walrus.getYres();
+		for (Double xp : x)
+		{
+			if ((xp*1.1)<xmin)
+			{
+				xmin = xp*1.1;
+			}
+			if ((xp*1.1)>xmax)
+			{
+				xmax = xp*1.1;
+			}
+			xres = walrus.getXres()*((xmax-xmin)/(walrus.getXmax()-walrus.getXmin()));
+		}
+		for (Double yp : y)
+		{
+			if ((yp*1.1)<xmin)
+			{
+				ymin = yp*1.1;
+			}
+			if ((yp*1.1)>xmax)
+			{
+				ymax = yp*1.1;
+			}
+			xres = walrus.getYres()*((ymax-ymin)/(walrus.getYmax()-walrus.getYmin()));
+		}
+		Window wammy = new Window(xmax, xmin, xres, ymax, ymin, yres);
 		return wammy;
 	}
 	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints)
