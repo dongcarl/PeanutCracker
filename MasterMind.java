@@ -37,7 +37,14 @@ public class MasterMind implements Operator
 	public MasterMind(Function func, int operation, Window walrus)
 	{
 		//The constructor takes in a ControlCenter to pass messages to
-		mailToGraph(processXPoints(func, walrus), processFunction(func, operation, walrus));
+		ArrayList<Double> x = processXPoints(func, walrus);
+		ArrayList<Double> y = processFunction(func, operation, walrus);
+		System.out.println("coordinate points");
+		for (int i = 0; i <x.size() && i < y.size(); i++)
+		{
+			System.out.println("coordinate "+i+" x: "+x.get(i)+" y: "+y.get(i));
+		}
+		mailToGraph(x, y);
 	}
 	public static Window optimizeWindow(ArrayList<Double> x, ArrayList<Double> y, Window walrus)
 	{
