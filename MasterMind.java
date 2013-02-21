@@ -24,8 +24,8 @@ public class MasterMind implements Operator
 	{
 		ArrayList<Element> jake = new ArrayList<Element>();
 		Polynomial polly = new Polynomial();
-		polly.addElement(new Monomial(.5, 2));
-		//polly.addElement(new Monomial(3, 6));
+		polly.addElement(new Monomial(1, 1));
+		polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
 		jake.add(polly);
