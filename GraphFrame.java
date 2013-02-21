@@ -15,9 +15,6 @@ public class GraphFrame extends JFrame
 {
 
 	public static GraphPanel gpnl = new GraphPanel();
-
-
-
 	public static void main(String arg[])
 	{
 		GraphFrame ex = new GraphFrame();
