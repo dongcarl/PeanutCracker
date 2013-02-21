@@ -19,19 +19,30 @@ public class MasterMind implements Operator
 	String modFunction;
 	public static ArrayList<Double> xPoints = new ArrayList<Double>();
 	public static ArrayList<Double> yPoints = new ArrayList<Double>();
-	
+
 	public static void main(String[] args)
 	{
+		//array list of elements
 		ArrayList<Element> jake = new ArrayList<Element>();
+		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
+		//add a new monomial to the polynomial
 		polly.addElement(new Monomial(1, 1));
 		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
+		//add the polynomial to the arraylist of elements
 		jake.add(polly);
+		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
+		//make a new window
 		Window witherspoon = new Window();
-		MasterMind mindy = new MasterMind(terry, -2, witherspoon);
+		MasterMind mindy = new MasterMind(terry, 1, witherspoon);
+		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
+		{
+			double d1 = d;
+			System.out.println("when y = 0, x = "+d);
+		}
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
@@ -46,6 +57,39 @@ public class MasterMind implements Operator
 		while (x.size()>y.size()) x.remove(x.size()-1);
 		while (y.size()>x.size()) y.remove(y.size()-1);
 		mailToGraph(x, y);
+	}
+	public static ArrayList<Double> getZeroes(Function func, int operation, Window walrus)
+	{
+		//returns the xcoordinates of any zeroes
+		//if a zero is predicted between two points, then  it is aproximated by a linearization connecting the two points
+		//this is only as accurate as the resolution, because it can miss zeroes if there is no change in sign or exact match
+		ArrayList<Double> x = processXPoints(func, walrus);
+		ArrayList<Double> y = processFunction(func, operation, walrus);
+		ArrayList<Double> zero = new ArrayList<Double>();
+		for (int i = 0; i<x.size()-1 && i<y.size()-1; i++)
+		{
+			if (y.get(i) == 0 )
+			{
+				zero.add(x.get(i));
+			}
+			else if (y.get(i)<0 && y.get(i+1)>0 || y.get(i)>0 && y.get(i+1)<0)
+			{
+				//a zero is somewhere between two points on a continuous function (one positive, one negative)
+				double y1 = y.get(i);
+				double y2 = y.get(i+1);
+				double x1 = x.get(i);
+				double x2 = x.get(i+1);
+				//the ratio of the distance from x1 to the estimated zero vs x2 to the estimated zero is 
+				//	proportional to distance from y1 to 0 vs y2 to 0 ---> Math.abs(y1/y2)
+				//	when the estimate is a line
+				double xd = Math.abs(x2-x1);
+				double estd = xd*Math.abs(y1/y2);
+				double estimate = x1+estd;
+				//add the linear estimate
+				zero.add(estimate);
+			}
+		}
+		return zero;
 	}
 	public static Window optimizeWindow(ArrayList<Double> x, ArrayList<Double> y, Window walrus)
 	{
