@@ -1,10 +1,15 @@
 package PeanutCracker;
 
+import com.dessci.mathflow.sdk.license.LicenseException;
+import com.dessci.mathflow.sdk.license.LicenseSource;
+import com.dessci.mathflow.sdk.editor.SimpleEditorFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,13 +30,13 @@ public class WelcomeScreen extends JFrame implements MouseListener
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-// Determine the new location of the window
+		// Determine the new location of the window
 		int w = this.getSize().width;
 		int h = this.getSize().height;
 		int x = (dim.width-w)/2;
 		int y = (dim.height-h)/2;
 
-// Move the window
+		// Move the window
 		this.setLocation(x, y);
 
 		setLayout(new FlowLayout());
@@ -67,8 +72,15 @@ public class WelcomeScreen extends JFrame implements MouseListener
 		else if (theChosenOne.getName() == "GUIDE ME MASTER")
 		{
 			this.dispose();
-			GuideFrame newGuide = new GuideFrame();
-			newGuide.setVisible(true);
+			newEditorFrame editorDialog = null;
+			try
+			{
+				editorDialog = new newEditorFrame(this, "dessci.lic", LicenseSource.FLEXLM_LIC);
+			} catch (LicenseException e1)
+			{
+				e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+			}
+			editorDialog.setVisible(true);
 		}
 
 		else

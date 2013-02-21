@@ -14,6 +14,13 @@ import java.awt.*;
  */
 public class Runner
 {
+	public Runner()
+	{
+		WelcomeScreen newWelcome = new WelcomeScreen();
+		newWelcome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		newWelcome.setVisible(true);
+	}
+
 	public static void main(String args[])
 	{
 		WelcomeScreen newWelcome = new WelcomeScreen();
