@@ -13,48 +13,51 @@ import static org.mentaregex.Regex.match;
 import static org.mentaregex.Regex.matches;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dongcarl
- * Date: 2/15/13
- * Time: 10:11 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: dongcarl
+* Date: 2/15/13
+* Time: 10:11 PM
+* To change this template use File | Settings | File Templates.
+*/
 public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 {
-
-	public static String export;
-
 	@Override
 	protected void closeEditorWindow()
 	{
 		System.out.println("raw data" + getMathML());
 
-		String normalizedResult = normalize(getMathML());
+		String normalizedResult = Normalizer.normalize(getMathML());
+
+		System.out.println("normalized: " + normalizedResult);
 
 		ArrayList<String> polyMathMLArrayList = new ArrayList<String>(Arrays.asList(match(normalizedResult, "/(<mo>\\S+?</msup>)/g")));
 
-		ArrayList<Monomial> Polys = parseMathMLArrayList(polyMathMLArrayList);
+		System.out.println("processed: " + polyMathMLArrayList.toString());
+
+		ArrayList<Monomial> PolysMonomialForm = parseMathMLArrayList(polyMathMLArrayList);
+
+		Function Polys = new Function();
+
+		for (Monomial i: PolysMonomialForm)
+		{
+			Polys.add(i);
+		}
+
+		Function currentFunc = new Function(Polys);
+
+		System.out.println(Polys);
+
+		MasterMind mind = new MasterMind(currentFunc, 0, new Window());
 
 		super.closeEditorWindow();    //To change body of overridden methods use File | Settings | File Templates.
 	}
 
-	private String normalize(String mathML)
-	{
-		mathML
-				.replaceAll("<math><mrow><mrow><mi linebreak='badbreak'>f</mi><mo>&ApplyFunction;</mo><mrow><mo linebreak='badbreak'>\\x{0028}</mo><mrow><mi>x</mi></mrow><mo>\\x{0029}</mo></mrow></mrow><mo>=</mo>", "").replaceAll("</mrow></math>", "")
-				.replaceAll("<mn>(\\d+)</mn><mi>(\\w+)</mi>", "<mn>$1</mn><msup><mrow><mi>$2</mi></mrow><mrow><mn>1</mn></mrow></msup>")
-				.replaceAll("<mn>(\\d+)</mn>(?!<msup>|</mrow>)", "<mn>$1</mn><msup><mrow><mi>x</mi></mrow><mrow><mn>0</mn></mrow></msup>")
-				.replaceAll("(?<=\\A)<mn>", "<mo>+</mo><mn>")
-				.replaceAll("(?<!</mn>)<msup>", "<mn>1</mn><msup>")
-				.replaceAll("\\A<mn>", "<mo>+</mo><mn>");
-		return mathML;
-	}
 
 	private ArrayList<Monomial> parseMathMLArrayList(ArrayList polyArray)
 	{
 		ArrayList<Monomial> result = new ArrayList<Monomial>();
 
-		System.out.println("polyArray: " + polyArray.toString());
+//		System.out.println("polyArray: " + polyArray.toString());
 
 		for (Object i : polyArray)
 		{
@@ -62,10 +65,10 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 			double Coeff = 0;
 			double Power = 0;
 			int Sign = 0;
-			System.out.println("current: " + current);
+//			System.out.println("current: " + current);
 
 			String[] foundCoeff = match(current, "/((?<=<mn>)\\S+?(?=</mn><msup))/g");
-			if(foundCoeff.length!=1)
+			if(foundCoeff.length==0)
 			{
 				System.out.println("coeff: splitting went wrong");
 			}
@@ -77,7 +80,7 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 
 			String[] foundPower = match(current, "/((?<=<mrow><mn>)\\S+?(?=</mn></mrow>))/g");
 
-			if(foundPower.length!=1)
+			if(foundPower.length==0)
 			{
 				System.out.println("power: splitting went wrong");
 			}
@@ -87,11 +90,11 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 				System.out.println(Power);
 			}
 
-			System.out.println("current before match: " + current);
+//			System.out.println("current before match: " + current);
 			String[] foundSign = match(current, "/((?<=<mo>)(\\S+?)(?=</mo>))/g");
 
-			System.out.println("here it is0: " + foundSign[0]);
-			System.out.println("here it is1: " + foundSign[1]);
+//			System.out.println("here it is0: " + foundSign[0]);
+//			System.out.println("here it is1: " + foundSign[1]);
 
 
 			if(foundSign.length==0)
@@ -101,7 +104,7 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 			else
 			{
 				String currentSign = foundSign[0];
-				if(currentSign.equals("&minus;"))
+				if(currentSign.equals("-"))
 				{
 					Sign = -1;
 				}
