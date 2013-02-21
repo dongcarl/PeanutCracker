@@ -31,8 +31,7 @@ public class MasterMind implements Operator
 		jake.add(polly);
 		Function terry = new Function(jake);
 		Window witherspoon = new Window();
-		ArrayList<Double> values = processFunction(terry, 0, witherspoon);
-		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
+		MasterMind mindy = new MasterMind(terry, -1, witherspoon);
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
@@ -44,6 +43,8 @@ public class MasterMind implements Operator
 		{
 			System.out.println("coordinate "+i+" x: "+x.get(i)+" y: "+y.get(i));
 		}
+		while (x.size()>y.size()) x.remove(x.size()-1);
+		while (y.size()>x.size()) y.remove(y.size()-1);
 		mailToGraph(x, y);
 	}
 	public static Window optimizeWindow(ArrayList<Double> x, ArrayList<Double> y, Window walrus)
@@ -115,21 +116,21 @@ public class MasterMind implements Operator
 		else if (operation == 1)
 		{
 			//now I'm looking to estimate the integral
-			System.out.println("\nYou are now in the twilight zone");
+			System.out.println("Integral operation selected");
 			ArrayList<Double> integral = new ArrayList<Double>();
 			double width = walrus.getXres();
 			double sum = 0;
 			for (Double y : yPoints)
 			{
 				sum += y;
-				System.out.print(" "+sum);
 				integral.add(sum);
 			}
+			return integral;
 		}
 		else if (operation == -1)
 		{
 			//now estimating the slope
-			System.out.println("\nYou are now in the twifright zone");
+			System.out.println("Derivative operation selected");
 			ArrayList<Double> derivative = new ArrayList<Double>();
 			double width = walrus.getXres();
 			double slope = 0;
@@ -137,9 +138,9 @@ public class MasterMind implements Operator
 			{
 				double rise = yPoints.get(i+1)-yPoints.get(i);
 				slope = rise/width;
-				System.out.print(""+slope);
 				derivative.add(slope);
 			}
+			return derivative;
 		}
 		return yPoints;
 	}
