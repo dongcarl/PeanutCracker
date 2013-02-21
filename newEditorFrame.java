@@ -27,6 +27,7 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 	@Override
 	protected void closeEditorWindow()
 	{
+		System.out.println("raw data" + getMathML());
 
 		String normalizedResult = normalize(getMathML());
 

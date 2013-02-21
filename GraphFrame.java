@@ -21,10 +21,7 @@ public class GraphFrame extends JFrame
 	public static void main(String arg[])
 	{
 		GraphFrame ex = new GraphFrame();
-		ex.setSize(500, 500);
-		ex.setTitle("Lines");
-		ex.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ex.setVisible(true);
+
 	}
 
 	public GraphFrame()
@@ -36,6 +33,11 @@ public class GraphFrame extends JFrame
 		menu.add(menuitem);
 		menubar.add(menu);
 		this.setJMenuBar(menubar);
+
+		this.setSize(500, 500);
+		this.setTitle("Lines");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
 
 	public GraphFrame(ArrayList X, ArrayList Y)
