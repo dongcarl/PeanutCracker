@@ -25,13 +25,13 @@ public class MasterMind implements Operator
 		ArrayList<Element> jake = new ArrayList<Element>();
 		Polynomial polly = new Polynomial();
 		polly.addElement(new Monomial(1, 1));
-		polly.addElement(new Monomial(10, 0));
+		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
 		jake.add(polly);
 		Function terry = new Function(jake);
 		Window witherspoon = new Window();
-		MasterMind mindy = new MasterMind(terry, -1, witherspoon);
+		MasterMind mindy = new MasterMind(terry, -2, witherspoon);
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
@@ -112,7 +112,6 @@ public class MasterMind implements Operator
 		{
 			return yPoints;
 		}
-//		return yPoints;
 		else if (operation == 1)
 		{
 			//now I'm looking to estimate the integral
@@ -141,6 +140,10 @@ public class MasterMind implements Operator
 				derivative.add(slope);
 			}
 			return derivative;
+		}
+		else if (operation != 0)
+		{
+			System.out.println("Bad operation passed, function evaluated as operation = 0. Please try again.\n    - Sincerely MGMT");
 		}
 		return yPoints;
 	}
