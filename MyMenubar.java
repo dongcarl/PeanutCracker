@@ -93,14 +93,14 @@ public class MyMenubar extends JMenuBar implements ActionListener
 					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 				}
 
-//				try
-//				{
-//					fileToSave.createNewFile();
-//				}
-//				catch (IOException e1)
-//				{
-//					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//				}
+				try
+				{
+					fileToSave.createNewFile();
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				}
 			}
 			//Handle save button action.
 		}
@@ -136,30 +136,30 @@ public class MyMenubar extends JMenuBar implements ActionListener
 					}
 				}
 
-//				String filePath = fileToSave.getPath();
-//				if(!filePath.toLowerCase().endsWith(".pcr"))
-//				{
-//					fileToSave = new File(filePath + ".pcr");
-//				}
-//
-//				Path file = fileToSave.toPath();
-//				byte[] buf = data.getBytes();
-//				try
-//				{
-//					Files.write(file, buf);
-//				} catch (IOException e1)
-//				{
-//					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//				}
-//
-////				try
-////				{
-////					fileToSave.createNewFile();
-////				}
-////				catch (IOException e1)
-////				{
-////					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-////				}
+				String filePath = fileToSave.getPath();
+				if(!filePath.toLowerCase().endsWith(".pcr"))
+				{
+					fileToSave = new File(filePath + ".pcr");
+				}
+
+				Path file = fileToSave.toPath();
+				byte[] buf = data.getBytes();
+				try
+				{
+					Files.write(file, buf);
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				}
+
+				try
+				{
+					fileToSave.createNewFile();
+				}
+				catch (IOException e1)
+				{
+					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				}
 			}
 		}
 
