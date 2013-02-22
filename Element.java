@@ -2,6 +2,9 @@ package PeanutCracker;
 
 public abstract class Element
 {
+	//the abstract element
+	//elements add together to make a function
+	
 	public String name;
 	public double value;
 	public double constant;
@@ -19,10 +22,12 @@ public abstract class Element
 	}
 	public double getConstant()
 	{
+		//return the constant multiple out front of element
 		return constant;
 	}
 	public void multiConstant(double con)
 	{
+		//multiply in a new constant
 		constant = constant*con;
 	}
 }
