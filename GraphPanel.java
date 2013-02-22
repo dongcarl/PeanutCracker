@@ -46,13 +46,13 @@ public class GraphPanel extends JPanel
 		}
 		g2d.setColor(Color.BLUE);
 		g2d.drawLine(0, originX, 500, originX);
-		for (int i = -5; i <= 5 ; i++)
+		for (int i = -10; i <= 10 ; i++)
 		{
 			g2d.drawLine(originY+i*unitY, originX-10, originY+i*unitY, originX+10);
 		}
 		g2d.setColor(Color.GREEN);
 		g2d.drawLine(originY, 0, originY, 500);
-		for (int i = -5; i <= 5 ; i++)
+		for (int i = -10; i <= 10 ; i++)
 		{
 			g2d.drawLine(originY-10, originX-i*unitX, originY+10, originX-i*unitX);
 		}

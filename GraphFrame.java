@@ -159,11 +159,13 @@ public class GraphFrame extends JFrame implements ActionListener
 
 				Object[] output = backParser(result);
 
-				System.out.println((Function)output[0]);
-				System.out.println((Window)output[1]);
+				System.out.println("backParsed Function" + (Function)output[0]);
+				System.out.println("backParsed window" + (Window)output[1]);
 
 
 				MasterMind newmind = new MasterMind((Function)output[0], 0, (Window)output[1]);
+
+
 			}
 		}
 
