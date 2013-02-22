@@ -24,50 +24,38 @@ public class MasterMind implements Operator
 
 	public static void main(String[] args)
 	{
-		//array list of elements
+		/*
+		 * A series to test Mastermind class from inputing a function through graphing
+		 */
+		//array list of elements that will make up the function
 		ArrayList<Element> jake = new ArrayList<Element>();
-		//make a polynomial to add to the above list
-		Polynomial polly = new Polynomial();
-		//add a new monomial to the polynomial
-		//polly.addElement(new Monomial(2, 2));
+		//make a series of monomial to add to the above list
 		jake.add(new Monomial(1, 3));
 		jake.add(new Monomial(1,0));
-		//jake.add(new Monomial(-1,1));
-		//polly.addElement(new Monomial(3, 1));
-		//polly.addElement(new Monomial(.5 , (int) .5));
-		//add the polynomial to the arraylist of elements
-		//jake.add(polly);
-		System.out.println("Size of jake = "+jake.size());
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
-		System.out.println("Size of terry = "+terry.size());
-		//make a new window
+		//make a new window with range -5 to 5 in the x value, testing every 1 unit
 		Window witherspoon = new Window(-5, 5, 1, -5, 5, .05);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
-//		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
-//		{
-//			double d1 = d;
-//			System.out.println("when y = 0, x = "+d);
-//		}
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
+		//on creation, add a new function, a new window
 		Functions.add(func);
 		Windows.add(walrus);
-		//The constructor takes in a ControlCenter to pass messages to
+		//generates an arraylist of the x points of a function
 		ArrayList<Double> x = processXPoints(func, walrus);
+		//generates an arraylist of the y points of the function
 		ArrayList<Double> y = processFunction(func, operation, walrus);
-		System.out.println("coordinate points");
-		for (int i = 0; i <x.size() && i < y.size(); i++)
-		{
-	//		System.out.println("coordinate "+i+" x: "+x.get(i)+" y: "+y.get(i));
-		}
+		//make sure the lists are the same size
 		while (x.size()>y.size()) x.remove(x.size()-1);
 		while (y.size()>x.size()) y.remove(y.size()-1);
+		//now prepare and send the data to the graphing classes
 		mailToGraph(x, y, walrus);
 	}
 	public static ArrayList<Double> getZeroes(Function func, int operation, Window walrus)
 	{
+		//not really used
 		//returns the xcoordinates of any zeroes
 		//if a zero is predicted between two points, then  it is aproximated by a linearization connecting the two points
 		//this is only as accurate as the resolution, because it can miss zeroes if there is no change in sign or exact match
@@ -101,6 +89,7 @@ public class MasterMind implements Operator
 	}
 	public static Window optimizeWindow(ArrayList<Double> x, ArrayList<Double> y, Window walrus)
 	{
+		//sets the window to include the maximum and minimum points of the function within the x range
 		double xmax = walrus.getXmax();
 		double xmin = walrus.getXmin();
 		double xres = walrus.getXres();
@@ -136,52 +125,12 @@ public class MasterMind implements Operator
 	}
 	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints, Window w)
 	{
+		//make a new graph frame with the coordinates xpoints, ypoints, window w
 		new GraphFrame(xpoints, ypoints, w);
-	}
-	public static double[] returnOrigin(int xsize, int ysize, ArrayList<Double> xpoints, ArrayList<Double> ypoints)
-	{
-		//returns a double[] with the first value as x, second value as y
-		double[] originCoords = new double[2];
-		double xmax = Collections.max(xpoints);
-		double xmin = Collections.min(xpoints);
-		double revised = ((500*0)/(xmax-xmin))+(xsize/2);
-		originCoords[0] = revised;
-		double ymax = Collections.max(ypoints);
-		double ymin = Collections.min(ypoints);
-		revised = -((500*0)/(ymax-ymin))+(ysize/2);
-		originCoords[1] = revised;
-		return originCoords;
-	}
-	public static ArrayList<Double> adjustToPanelX(int xsize, ArrayList<Double> xpoints)
-	{
-		//xsize of the display window in pixels
-		//arraylist of the xpoint that will be graphed
-		double xmax = Collections.max(xpoints);
-		double xmin = Collections.min(xpoints);
-		ArrayList<Double> adjX = new ArrayList<Double>();
-		for (Double xc : xpoints)
-		{
-			double revised = ((500*xc)/(xmax-xmin))+(xsize/2);
-			adjX.add(revised);
-		}
-		return adjX;
-	}
-	public static ArrayList<Double> adjustToPanelY(int ysize, ArrayList<Double> ypoints)
-	{
-		//ysize of the display window in pixels
-		//arraylist of the ypoints that will be graphed
-		double ymax = Collections.max(ypoints);
-		double ymin = Collections.min(ypoints);
-		ArrayList<Double> adjY = new ArrayList<Double>();
-		for (Double yc : ypoints)
-		{
-			double revised = -((500*yc)/(ymax-ymin))+(ysize/2);
-			adjY.add(revised);
-		}
-		return adjY;
 	}
 	public static ArrayList<Double> processXPoints(Function func, Window walrus)
 	{
+		//generate a list of the x coordinates of the function for the window
 		xPoints = new ArrayList<Double>();
 		for (double x = walrus.getXmin(); x<=walrus.getXmax(); x+=walrus.getXres())
 		{
@@ -192,6 +141,7 @@ public class MasterMind implements Operator
 	public static ArrayList<Double> processFunction(Function func, int operation, Window walrus)
 	{
 		//Operation 0 = none, 1 = integrate, -1 = derive
+		//generate a list of the ypoints by subsituting each x point
 		ArrayList<Double> yPoints = new ArrayList<Double>();
 		walrus.getXmin();
 		walrus.getXmax();
@@ -204,31 +154,33 @@ public class MasterMind implements Operator
 		}
 		if (operation == 0)
 		{
+			//if the operation is do nothing, return the y points
 			return yPoints;
 		}
 		else if (operation == 1)
 		{
 			//now I'm looking to estimate the integral
-			System.out.println("Integral operation selected");
 			ArrayList<Double> integral = new ArrayList<Double>();
 			double width = walrus.getXres();
 			double sum = 0;
 			for (Double y : yPoints)
 			{
-				sum += y;
+				//add the height times the xstep to the accumulator function
+				sum += y*width;
 				integral.add(sum);
 			}
+			//return the integral
 			return integral;
 		}
 		else if (operation == -1)
 		{
-			//now estimating the slope
-			System.out.println("Derivative operation selected");
+			//now estimating the slope/derivative
 			ArrayList<Double> derivative = new ArrayList<Double>();
 			double width = walrus.getXres();
 			double slope = 0;
 			for (int i = 0; i < yPoints.size() - 1 ; i++)
 			{
+				//look at the change in rise and run for an approximate secant
 				double rise = yPoints.get(i+1)-yPoints.get(i);
 				slope = rise/width;
 				derivative.add(slope);
@@ -237,6 +189,7 @@ public class MasterMind implements Operator
 		}
 		else if (operation != 0)
 		{
+			//entertaining error message
 			System.out.println("Bad operation passed, function evaluated as operation = 0. Please try again.\n    - Sincerely MGMT");
 		}
 		return yPoints;
@@ -271,26 +224,6 @@ public class MasterMind implements Operator
 			return dave;
 		}
 	}
-	public static ArrayList<ArrayList<Double>> getPoints(Function mode, Window wind)
-	{
-		ArrayList<ArrayList<Double>> setup = new ArrayList<ArrayList<Double>>(2);
-		ArrayList<Double> xpoints = new ArrayList<Double>();
-		ArrayList<Double> ypoints = new ArrayList<Double>();
-		double xmi = wind.xmin;
-		double xma = wind.xmax;
-		double xdif = xma-xmi;
-		double xcount = xdif*wind.xres;
-		double xval;
-		for (int i = 0; i<=xcount; i++)
-		{
-			xval = xma+(i*(xdif/xcount));
-			xpoints.add(xval);
-			ypoints.add(substitute(mode, xval));
-		}
-		setup.add(xpoints);
-		setup.add(ypoints);
-		return setup;
-	}
 	private static double substitute(Function mode, double replace)
 	{
 		//substitutes and evaluates the function for the given variable in place of "x"
@@ -310,6 +243,8 @@ public class MasterMind implements Operator
 	}
 	private Function integrate(Function mode)
 	{
+		//finding the integral of the function
+		//generalized with symbolic calculations
 		Function mod = mode;
 		for (Element e:mod)
 		{
@@ -319,6 +254,8 @@ public class MasterMind implements Operator
 	}
 	private Function differentiate(Function mode)
 	{
+		//finding the derivative of the function
+		//generalized with symbolic calculations		
 		Function mod = mode;
 		for (Element e:mod)
 		{
