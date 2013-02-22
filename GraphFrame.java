@@ -14,9 +14,8 @@ import java.util.Random;
 public class GraphFrame extends JFrame
 {
 
+
 	public static GraphPanel gpnl = new GraphPanel();
-
-
 
 	public static void main(String arg[])
 	{
@@ -27,11 +26,8 @@ public class GraphFrame extends JFrame
 	public GraphFrame()
 	{
 		this.add(gpnl);
-		JMenuBar menubar = new JMenuBar();
-		JMenu menu = new JMenu("File");
-		JMenuItem menuitem = new JMenuItem("Save...");
-		menu.add(menuitem);
-		menubar.add(menu);
+		MyMenubar menubar = new MyMenubar(MasterMind.Functions);
+
 		this.setJMenuBar(menubar);
 
 		this.setSize(500, 500);
@@ -51,15 +47,11 @@ public class GraphFrame extends JFrame
 	{
 		gpnl.setWindow(w);
 	}
-	
+
 	public static void addFunc(ArrayList X, ArrayList Y)
 	{
 		gpnl.addGraph(X, Y);
 		gpnl.revalidate();
 
 	}
-
-
-
-
 }

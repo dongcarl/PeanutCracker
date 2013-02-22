@@ -24,11 +24,11 @@ public class MyMenubar extends JMenuBar implements ActionListener
 	ArrayList<JMenuItem> fileMenuItems = new ArrayList<JMenuItem>();
 
 
-	public MyMenubar(String input)
+	public MyMenubar(ArrayList<Function> input)
 	{
 		super();
 
-		this.data = input;
+		this.data = input.toString();
 
 		addItems();
 		addListeners();

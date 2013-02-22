@@ -20,6 +20,7 @@ public class MasterMind implements Operator
 	String modFunction;
 	public static ArrayList<Double> xPoints = new ArrayList<Double>();
 	public static ArrayList<Double> yPoints = new ArrayList<Double>();
+	public static ArrayList<Function> Functions;
 
 	public static void main(String[] args)
 	{
@@ -47,6 +48,7 @@ public class MasterMind implements Operator
 	}
 	public MasterMind(Function func, int operation, Window walrus)
 	{
+		Functions.add(func);
 		//The constructor takes in a ControlCenter to pass messages to
 		ArrayList<Double> x = processXPoints(func, walrus);
 		ArrayList<Double> y = processFunction(func, operation, walrus);
