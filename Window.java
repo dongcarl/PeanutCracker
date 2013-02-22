@@ -12,6 +12,13 @@ public class Window
 	{
 		this(-10, 10, -10, 10);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "<xmin>" + xmin + "</xmin>" + "<xmax>" + xmax + "</xmax>" + "<xres>" + xres + "</xres>" + "<ymin>" + ymin + "</ymin>" + "<ymax>" + ymax + "</ymax>" + "<yres>" + yres + "</yres>";
+	}
+
 	public Window(double xmin, double xmax)
 	{
 		this(xmin, xmax, -10, 10);

@@ -21,6 +21,8 @@ import static org.mentaregex.Regex.matches;
 */
 public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 {
+
+	public static Function currentFunc;
 	@Override
 	protected void closeEditorWindow()
 	{
@@ -43,7 +45,7 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 			Polys.add(i);
 		}
 
-		Function currentFunc = new Function(Polys);
+		currentFunc = new Function(Polys);
 
 		System.out.println(Polys);
 
