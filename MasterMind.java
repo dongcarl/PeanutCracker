@@ -43,7 +43,7 @@ public class MasterMind implements Operator
 		Function terry = new Function(jake);
 		System.out.println("Size of terry = "+terry.size());
 		//make a new window
-		Window witherspoon = new Window(-5, 5, .05, -5, 5, .05);
+		Window witherspoon = new Window(-5, 5, 1, -5, 5, .05);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 //		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 //		{
@@ -61,7 +61,7 @@ public class MasterMind implements Operator
 		System.out.println("coordinate points");
 		for (int i = 0; i <x.size() && i < y.size(); i++)
 		{
-			System.out.println("coordinate "+i+" x: "+x.get(i)+" y: "+y.get(i));
+	//		System.out.println("coordinate "+i+" x: "+x.get(i)+" y: "+y.get(i));
 		}
 		while (x.size()>y.size()) x.remove(x.size()-1);
 		while (y.size()>x.size()) y.remove(y.size()-1);
@@ -304,7 +304,7 @@ public class MasterMind implements Operator
 			count++;
 			Constant charlie = e.substitute(replace);
 			sum += charlie.getValue();
-			System.out.println("charlie sum #"+count+" = "+sum);
+			//System.out.println("charlie sum #"+count+" = "+sum);
 			//should return a constant function with one element e
 		}
 		return sum;
