@@ -45,11 +45,10 @@ public class newEditorFrame extends SimpleEditorFrame implements MouseListener
 			Polys.add(i);
 		}
 
-		currentFunc = new Function(Polys);
 
-		System.out.println(Polys);
 
-		MasterMind mind = new MasterMind(currentFunc, 0, new Window());
+
+		MasterMind mind = new MasterMind(Polys, 0, new Window(-10, 10, .001, -10, 10, .001));
 
 		super.closeEditorWindow();    //To change body of overridden methods use File | Settings | File Templates.
 	}
