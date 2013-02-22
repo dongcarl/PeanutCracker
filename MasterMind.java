@@ -37,7 +37,7 @@ public class MasterMind implements Operator
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
 		//make a new window
-		Window witherspoon = new Window(-10, 10, .1, -10, 10, .1);
+		Window witherspoon = new Window(-5, 10, .1, -10, 10, .1);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 		{
@@ -50,6 +50,8 @@ public class MasterMind implements Operator
 		//The constructor takes in a ControlCenter to pass messages to
 		ArrayList<Double> x = processXPoints(func, walrus);
 		ArrayList<Double> y = processFunction(func, operation, walrus);
+		Window widow = new Window(-10,10, .1, -10, 10, .1);
+		widow = optimizeWindow(x,y, widow);
 		System.out.println("coordinate points");
 		for (int i = 0; i <x.size() && i < y.size(); i++)
 		{
@@ -57,7 +59,7 @@ public class MasterMind implements Operator
 		}
 		while (x.size()>y.size()) x.remove(x.size()-1);
 		while (y.size()>x.size()) y.remove(y.size()-1);
-		mailToGraph(x, y);
+		mailToGraph(x, y, widow);
 	}
 	public static ArrayList<Double> getZeroes(Function func, int operation, Window walrus)
 	{
@@ -127,9 +129,9 @@ public class MasterMind implements Operator
 		Window wammy = new Window(xmax, xmin, xres, ymax, ymin, yres);
 		return wammy;
 	}
-	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints)
+	public static void mailToGraph(ArrayList<Double> xpoints, ArrayList<Double> ypoints, Window w)
 	{
-		new GraphFrame(adjustToPanelX(500, xpoints), adjustToPanelY(500, ypoints));
+		new GraphFrame(xpoints, ypoints, w);
 	}
 	public static double[] returnOrigin(int xsize, int ysize, ArrayList<Double> xpoints, ArrayList<Double> ypoints)
 	{
@@ -193,7 +195,7 @@ public class MasterMind implements Operator
 		double xcount = xrange/walrus.getXres();
 		for (double x = walrus.getXmin(); x<=walrus.getXmax(); x+=walrus.getXres())
 		{
-			yPoints.add(substitute(func,x));
+			yPoints.add((double) substitute(func,x));
 		}
 		if (operation == 0)
 		{

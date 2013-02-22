@@ -40,12 +40,18 @@ public class GraphFrame extends JFrame
 		this.setVisible(true);
 	}
 
-	public GraphFrame(ArrayList X, ArrayList Y)
+	public GraphFrame(ArrayList X, ArrayList Y, Window w)
 	{
 		new GraphFrame();
+		setWindow(w);
 		addFunc(X, Y);
 	}
 
+	public static void setWindow(Window w)
+	{
+		gpnl.setWindow(w);
+	}
+	
 	public static void addFunc(ArrayList X, ArrayList Y)
 	{
 		gpnl.addGraph(X, Y);

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
 * Created with IntelliJ IDEA.
@@ -25,6 +26,11 @@ public class GraphPanel extends JPanel
 	public static int originX;
 	public static int originY;
 
+	public static int xsize;
+	public static int ysize;
+	
+	public static Window wi;
+	
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -33,21 +39,49 @@ public class GraphPanel extends JPanel
 
 			for (int i = 0; i<XArray.size(); i++)
 			{
+				//System.out.println("plotting "+XArray.get(i)+ YArray.get(i));
 				plot(XArray.get(i), YArray.get(i), g2d);
 			}
 			g2d.setColor(Color.BLUE);
-			g2d.drawLine(0, originY, 500, originY);
-			g2d.drawLine(originX, 0, originY, 500);
+			g2d.drawLine(0, originX, 500, originX);
+			g2d.setColor(Color.GREEN);
+			g2d.drawLine(originY, 0, originY, 500);
 	}
 
 	public GraphPanel()
 	{
 		super();
-		originX = (int) MasterMind.returnOrigin(500, 500, XArray.get(0), YArray.get(0))[0];
-		originY = (int) MasterMind.returnOrigin(500, 500, XArray.get(0), YArray.get(0))[1];
+		xsize = this.getWidth();
+		ysize = this.getHeight();
 	}
 
-	public static void addGraph(ArrayList X, ArrayList Y)
+	public static void configureForDisplay(ArrayList<Double> rawX, ArrayList<Double> rawY, Window wind)
+	{
+		double Xrange = wind.getXmax() - wind.getXmin();
+		double Yrange = wind.getYmax() - wind.getYmin();
+		ArrayList<Double> newXvals = new ArrayList<Double>(rawX.size());
+		ArrayList<Double> newYvals = new ArrayList<Double>(rawY.size());
+		//for (Double d : rawX)
+		double offset = (500/(wind.getXmin()-wind.getXmax()))*Math.abs((wind.getXmin()));
+		System.out.println("offset = "+offset);
+		originY = (int) (offset);
+		
+		double ratio = -(500/Xrange);
+		double value;
+		for(int i = 0; i<rawX.size(); i++)
+		{
+			value = rawX.get(i)*ratio+(originY);
+			newXvals.add(value);
+		}
+		addToArray(newXvals, rawY);
+	}
+	
+	public static void setWindow(Window w)
+	{
+		wi = w;
+	}
+	
+	public static void addGraph(ArrayList<Double> X, ArrayList<Double> Y)
 	{
 
 		if (X.size()!=Y.size())
@@ -57,14 +91,16 @@ public class GraphPanel extends JPanel
 
 		else
 		{
-			addToArray(X, Y);
+			configureForDisplay(X, Y, wi);
 		}
 	}
 
 	public static void addToArray(ArrayList x, ArrayList y)
 	{
 		XArray.add(x);
+		System.out.println("added to XArray "+XArray);
 		YArray.add(y);
+		System.out.println("added to YArray "+YArray);
 	}
 
 
