@@ -29,7 +29,7 @@ public class MasterMind implements Operator
 		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
 		//add a new monomial to the polynomial
-		polly.addElement(new Monomial(1, 3));
+		polly.addElement(new Monomial(.1, 2));
 		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
@@ -38,7 +38,7 @@ public class MasterMind implements Operator
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
 		//make a new window
-		Window witherspoon = new Window(-5, 5, .05, -5, 5, .05);
+		Window witherspoon = new Window(-10, 10, .05, -1, 100, .05);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 		{

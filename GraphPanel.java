@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
-* Created with IntelliJ IDEA.
-* User: dongcarl
-* Date: 2/1/13
-* Time: 2:23 PM
-* To change this template use File | Settings | File Templates.
-*/
+ * Created with IntelliJ IDEA.
+ * User: dongcarl
+ * Date: 2/1/13
+ * Time: 2:23 PM
+ * To change this template use File | Settings | File Templates.
+ */
 public class GraphPanel extends JPanel
 {
 	public static ArrayList<ArrayList<Double>> XArray = new ArrayList<ArrayList<Double>>();
@@ -25,27 +25,37 @@ public class GraphPanel extends JPanel
 
 	public static int originX;
 	public static int originY;
+	public static int unitX = 10;
+	public static int unitY = 10;
 
 	public static int xsize;
 	public static int ysize;
-	
+
 	public static Window wi;
-	
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
 
-			for (int i = 0; i<XArray.size(); i++)
-			{
-				//System.out.println("plotting "+XArray.get(i)+ YArray.get(i));
-				plot(XArray.get(i), YArray.get(i), g2d);
-			}
-			g2d.setColor(Color.BLUE);
-			g2d.drawLine(0, originX, 500, originX);
-			g2d.setColor(Color.GREEN);
-			g2d.drawLine(originY, 0, originY, 500);
+		for (int i = 0; i<XArray.size(); i++)
+		{
+			//System.out.println("plotting "+XArray.get(i)+ YArray.get(i));
+			plot(XArray.get(i), YArray.get(i), g2d);
+		}
+		g2d.setColor(Color.BLUE);
+		g2d.drawLine(0, originX, 500, originX);
+		for (int i = -5; i <= 5 ; i++)
+		{
+			g2d.drawLine(originY+i*unitY, originX-10, originY+i*unitY, originX+10);
+		}
+		g2d.setColor(Color.GREEN);
+		g2d.drawLine(originY, 0, originY, 500);
+		for (int i = -5; i <= 5 ; i++)
+		{
+			g2d.drawLine(originY-10, originX-i*unitX, originY+10, originX-i*unitX);
+		}
 	}
 
 	public GraphPanel()
@@ -73,6 +83,8 @@ public class GraphPanel extends JPanel
 		System.out.println("rat2 = "+rat2);
 		originY = (int) (rat2);
 		double ratio = -(500/Xrange);
+		unitX = (int) Math.abs(ratio); unitY = (int) Math.abs(ratio);
+		System.out.println("unitY = "+unitY);
 		double value;
 		for(int i = 0; i<rawX.size(); i++)
 		{
@@ -82,23 +94,26 @@ public class GraphPanel extends JPanel
 		double ymin = wind.getYmin();
 		double ymax = wind.getYmax();
 		sum = Math.abs(ymin)+Math.abs(ymax);
+		System.out.println("sum "+sum);
 		rat1 = 500/sum;
 		System.out.println("rat1 y = "+rat1);
-		rat2 = Math.abs(rat2*ymin);
+		System.out.println("ymin = "+ymin);
+		rat2 = Math.abs(rat1*ymax);
+		originX = (int) (rat2);
 		System.out.println("rat2 y = "+rat2);
 		for(int i = 0; i<rawY.size(); i++)
 		{
-			value = rawY.get(i)*ratio+(250+originX);
+			value = (rawY.get(i)*ratio)+(originX);
 			newYvals.add(value);
 		}
 		addToArray(newXvals, newYvals);
 	}
-	
+
 	public static void setWindow(Window w)
 	{
 		wi = w;
 	}
-	
+
 	public static void addGraph(ArrayList<Double> X, ArrayList<Double> Y)
 	{
 
