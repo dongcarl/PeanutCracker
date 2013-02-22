@@ -1,16 +1,7 @@
 package PeanutCracker;
 
-import com.dessci.mathflow.sdk.license.LicenseException;
-import com.dessci.mathflow.sdk.license.LicenseSource;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.nio.file.*;
 import java.util.ArrayList;
-
-import static org.mentaregex.Regex.match;
 
 /**
 * Created with IntelliJ IDEA.

@@ -2,14 +2,11 @@ package PeanutCracker;
 
 import com.dessci.mathflow.sdk.license.LicenseException;
 import com.dessci.mathflow.sdk.license.LicenseSource;
-import com.dessci.mathflow.sdk.editor.SimpleEditorFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +22,6 @@ public class WelcomeScreen extends JFrame implements MouseListener
 
 	public WelcomeScreen()
 	{
-
 		this.setSize(270, 60);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -65,6 +61,7 @@ public class WelcomeScreen extends JFrame implements MouseListener
 
 		if (theChosenOne.getName() == "I GOT THIS")
 		{
+			this.dispose();
 			GraphFrame newFrame = new GraphFrame();
 			newFrame.setVisible(true);
 		}

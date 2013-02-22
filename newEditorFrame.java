@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.mentaregex.Regex.match;
-import static org.mentaregex.Regex.matches;
 
 /**
 * Created with IntelliJ IDEA.

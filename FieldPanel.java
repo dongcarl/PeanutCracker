@@ -1,7 +1,5 @@
 package PeanutCracker;
 
-import com.sun.org.apache.xerces.internal.impl.dtd.XMLEntityDecl;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

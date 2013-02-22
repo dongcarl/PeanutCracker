@@ -1,8 +1,6 @@
 package PeanutCracker;
 
-import javax.xml.bind.annotation.XmlInlineBinaryData;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.
