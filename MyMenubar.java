@@ -1,13 +1,10 @@
 package PeanutCracker;
 
-import sun.misc.IOUtils;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.ArrayList;
 
 /**
@@ -118,11 +115,25 @@ public class MyMenubar extends JMenuBar implements ActionListener
 				File fileToSave = fc.getSelectedFile();
 				System.out.println(fileToSave.toString());
 
-				FileInputStream inputStream = new FileInputStream("foo.txt");
+				FileInputStream inputStream = null;
+				try
+				{
+					inputStream = new FileInputStream(fileToSave);
+				} catch (FileNotFoundException e1)
+				{
+					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				}
 				try {
 					String everything = IOUtils.toString(inputStream);
+					System.out.println(everything);
 				} finally {
-					inputStream.close();
+					try
+					{
+						inputStream.close();
+					} catch (IOException e1)
+					{
+						e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+					}
 				}
 
 //				String filePath = fileToSave.getPath();
