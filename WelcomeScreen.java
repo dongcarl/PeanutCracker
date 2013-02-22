@@ -20,6 +20,7 @@ public class WelcomeScreen extends JFrame implements MouseListener
 	public JButton got;
 	public JButton guide;
 
+	//Basic UIInit
 	public WelcomeScreen()
 	{
 		this.setSize(270, 60);
