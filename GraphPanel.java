@@ -22,6 +22,8 @@ public class GraphPanel extends JPanel
 
 	public static int step;
 
+	public static int originX;
+	public static int originY;
 
 	public void paintComponent(Graphics g)
 	{
@@ -33,11 +35,16 @@ public class GraphPanel extends JPanel
 			{
 				plot(XArray.get(i), YArray.get(i), g2d);
 			}
+			g2d.setColor(Color.BLUE);
+			g2d.drawLine(0, originY, 500, originY);
+			g2d.drawLine(originX, 0, originY, 500);
 	}
 
 	public GraphPanel()
 	{
 		super();
+		originX = (int) MasterMind.returnOrigin(500, 500, XArray.get(0), YArray.get(0))[0];
+		originY = (int) MasterMind.returnOrigin(500, 500, XArray.get(0), YArray.get(0))[1];
 	}
 
 	public static void addGraph(ArrayList X, ArrayList Y)
