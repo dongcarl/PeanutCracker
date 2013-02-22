@@ -7,20 +7,13 @@ public class Function extends ArrayList<Element> implements Operator
 	/**
 	 * generated serializable version UID added because it is a serializable class
 	 */
-	//parametric function
-	//limits
-	//integrals
-	//differentiation
-	
 	private static final long serialVersionUID = -1852458274303596909L;
-	//add to an interface Constants
-	
 	Operators operator = Operators.NONE;
 	Double substitute;
 	String modFunction;
 	public Function()
 	{
-		
+		//empty function constructor does nothing
 	}
 	public Function(ArrayList<Element> func)
 	{
@@ -41,7 +34,6 @@ public class Function extends ArrayList<Element> implements Operator
 		//set the function to be the array list of elements
 		//remove previous function
 		this.removeAll(this);
-		
 		for(Element e: func)
 		{
 			//add in the pieces
@@ -55,10 +47,12 @@ public class Function extends ArrayList<Element> implements Operator
 	}
 	public ArrayList<Element> getFunction()
 	{
+		//returns the function
 		return this;
 	}
 	public Operators getOperator()
 	{
+		//returns the current operator
 		return operator;
 	}
 	public boolean checkOp()
