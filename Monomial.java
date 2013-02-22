@@ -47,7 +47,7 @@ public class Monomial extends Element implements Comparable<Monomial>
 	@Override
 	public String toString()
 	{
-		return this.getConstant() + " times x to the power of " + this.getPower();    //To change body of overridden methods use File | Settings | File Templates.
+		return "<coeff>" + this.getConstant() + "</coeff>" + "<power>" + this.getPower() + "</power>";    //To change body of overridden methods use File | Settings | File Templates.
 	}
 
 	public double getPower()

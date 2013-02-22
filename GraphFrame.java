@@ -26,7 +26,7 @@ public class GraphFrame extends JFrame
 	public GraphFrame()
 	{
 		this.add(gpnl);
-		MyMenubar menubar = new MyMenubar(MasterMind.Functions);
+		MyMenubar menubar = new MyMenubar(MasterMind.Functions, MasterMind.Windows);
 
 		this.setJMenuBar(menubar);
 
