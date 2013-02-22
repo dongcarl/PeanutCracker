@@ -23,10 +23,16 @@ import static org.mentaregex.Regex.match;
 public class GraphFrame extends JFrame implements ActionListener
 {
 
+	//data string stores current function so that it can be saved to a .pcr file
 	private String data = "<function>" + MasterMind.Functions.toString() + "</function>" + "<window>" + MasterMind.Windows.toString() + "</window>";
+
+	//tells if GraphFrame has a graph.
 	public static boolean hasGraph = false;
 
+	//creates a new GraphPanel
 	public static GraphPanel gpnl = new GraphPanel();
+
+	//creates a new "MyMenubar"
 	MyMenubar menubar;
 
 	public static void main(String arg[])
@@ -35,6 +41,7 @@ public class GraphFrame extends JFrame implements ActionListener
 
 	}
 
+	//basic UI initialization
 	public GraphFrame()
 	{
 		this.add(gpnl);
@@ -49,6 +56,7 @@ public class GraphFrame extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
+	//constructor with params passed from MasterMind, creates new GraphFrame and thus new GraphPanel
 	public GraphFrame(ArrayList X, ArrayList Y, Window w)
 	{
 		hasGraph = true;
@@ -57,11 +65,13 @@ public class GraphFrame extends JFrame implements ActionListener
 		addFunc(X, Y);
 	}
 
+	//sets the window
 	public static void setWindow(Window w)
 	{
 		gpnl.setWindow(w);
 	}
 
+	//adds a function
 	public static void addFunc(ArrayList X, ArrayList Y)
 	{
 		gpnl.addGraph(X, Y);
@@ -72,43 +82,12 @@ public class GraphFrame extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == menubar.fileMenuItems.get(1))
-		{
-//			System.out.println("actionlistener working");
-			JFileChooser fc = new JFileChooser();
-			int returnVal = fc.showSaveDialog(GraphFrame.gpnl);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION)
-			{
-				File fileToSave = fc.getSelectedFile();
-
-				String filePath = fileToSave.getPath();
-				if(!filePath.toLowerCase().endsWith(".pcr"))
-				{
-					fileToSave = new File(filePath + ".pcr");
-				}
-
-				Path file = fileToSave.toPath();
-				byte[] buf = data.getBytes();
-				try
-				{
-					Files.write(file, buf);
-				} catch (IOException e1)
-				{
-					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-				}
-
-				try
-				{
-					fileToSave.createNewFile();
-				}
-				catch (IOException e1)
-				{
-					e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-				}
-			}
-			//Handle save button action.
-		}
+		//action taken if "Open and Save..." is chosen:
+		//	makes new JFileChooser
+		//	get the selected file
+		//	call backParser to parse the .pcr file into a Function and a Window class
+		//  create new mastermind with this Function and Window
 
 		if (e.getSource() == menubar.fileMenuItems.get(0))
 		{
@@ -158,15 +137,58 @@ public class GraphFrame extends JFrame implements ActionListener
 
 				Object[] output = backParser(result);
 
-				System.out.println("backParsed Function" + (Function)output[0]);
-				System.out.println("backParsed window" + (Window)output[1]);
+				System.out.println("backParsed Function" + (Function) output[0]);
+				System.out.println("backParsed window" + (Window) output[1]);
 
 
-				MasterMind newmind = new MasterMind((Function)output[0], 0, (Window)output[1]);
+				MasterMind newmind = new MasterMind((Function) output[0], 0, (Window) output[1]);
 
 
 			}
 		}
+
+		//actions taken if "Open..." is chosen
+		//	makes new JFileChooser
+		//	gets current directory with filename appended
+		//	save data as byte[] with the filename
+
+		if (e.getSource() == menubar.fileMenuItems.get(1))
+		{
+			JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showSaveDialog(GraphFrame.gpnl);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				File fileToSave = fc.getSelectedFile();
+
+				String filePath = fileToSave.getPath();
+				if (!filePath.toLowerCase().endsWith(".pcr"))
+				{
+					fileToSave = new File(filePath + ".pcr");
+				}
+
+				Path file = fileToSave.toPath();
+				byte[] buf = data.getBytes();
+				try
+				{
+					Files.write(file, buf);
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+
+				try
+				{
+					fileToSave.createNewFile();
+				} catch (IOException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+			//Handle save button action.
+		}
+
+		//creates a new editor which then passes info to Mastermind
 
 		if (e.getSource() == menubar.fileMenuItems.get(2))
 		{
@@ -185,6 +207,12 @@ public class GraphFrame extends JFrame implements ActionListener
 
 	}
 
+
+	//the backParser
+	// 1. takes a string which comes from a .pcr file
+	// 2. parses it using multiple regex replacements and matches
+	// 3. outputs an Object[] with the Function in index 0 and the window in index 1
+
 	public Object[] backParser(String input)
 	{
 		Object[] result = new Object[2];
@@ -197,7 +225,6 @@ public class GraphFrame extends JFrame implements ActionListener
 		String windowString = seperateChurchAndState(input)[1];
 
 
-
 		Function function = FunctionParser(functionString);
 		System.out.println(function);
 		Window window = WindowParser(windowString);
@@ -208,17 +235,14 @@ public class GraphFrame extends JFrame implements ActionListener
 		result[1] = window;
 
 
-
-
-
 //		System.out.println(functionString);
 //		System.out.println(windowString);
-
 
 
 		return result;
 	}
 
+	//parse the window part of the pcr file
 	private static Window WindowParser(String windowString)
 	{
 		String carl = windowString.replaceAll("(<window>\\[|]</window>)", "");
@@ -227,7 +251,7 @@ public class GraphFrame extends JFrame implements ActionListener
 		String thing = oscar.replaceAll(";;", ";");
 		String[] windowParamArray = thing.split(";");
 		ArrayList<Double> windowParamDouble = new ArrayList<Double>();
-		for(String i: windowParamArray)
+		for (String i : windowParamArray)
 		{
 			windowParamDouble.add(Double.parseDouble(i));
 		}
@@ -238,12 +262,13 @@ public class GraphFrame extends JFrame implements ActionListener
 
 	}
 
+	//parse the function part of the pcr file
 	private static Function FunctionParser(String functionString)
 	{
 		Function result = new Function();
 		String function = functionString.replaceAll("(<function>\\[\\[|\\]\\]</function>)", "");
 		String[] functionStrings = function.split(",");
-		for(String i: functionStrings)
+		for (String i : functionStrings)
 		{
 			double Coeff = Double.parseDouble(match(i, "/((?<=<coeff>).+?(?=</coeff>))/g")[0]);
 			double Power = Double.parseDouble(match(i, "/((?<=<power>).+?(?=</power>))/g")[0]);
@@ -253,6 +278,7 @@ public class GraphFrame extends JFrame implements ActionListener
 
 	}
 
+	//seperates window and function parts of the .pcr file
 	private static String[] seperateChurchAndState(String s)
 	{
 		String function = match(s, "/(<function>.+?</function>)/g")[0];
@@ -267,12 +293,12 @@ public class GraphFrame extends JFrame implements ActionListener
 
 	private void addListeners()
 	{
-		for(JMenu i: menubar.jMenus)
+		for (JMenu i : menubar.jMenus)
 		{
 			i.addActionListener(this);
 		}
 
-		for(JMenuItem v: menubar.fileMenuItems)
+		for (JMenuItem v : menubar.fileMenuItems)
 		{
 			v.addActionListener(this);
 		}

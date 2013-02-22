@@ -11,12 +11,8 @@ import javax.swing.*;
  */
 public class Runner
 {
-	public Runner()
-	{
-		WelcomeScreen newWelcome = new WelcomeScreen();
-		newWelcome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		newWelcome.setVisible(true);
-	}
+
+	//This class creates a new Welcome Screen. Always start here.
 
 	public static void main(String args[])
 	{
