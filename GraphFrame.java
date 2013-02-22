@@ -234,6 +234,11 @@ public class GraphFrame extends JFrame implements ActionListener
 		result[0] = function;
 		result[1] = window;
 
+
+//		System.out.println(functionString);
+//		System.out.println(windowString);
+
+
 		return result;
 	}
 
@@ -277,6 +282,7 @@ public class GraphFrame extends JFrame implements ActionListener
 	private static String[] seperateChurchAndState(String s)
 	{
 		String function = match(s, "/(<function>.+?</function>)/g")[0];
+//		System.out.println(match(s, "/(<function>.+?</function>)/g")[0]);
 		String window = match(s, "/(<window>.+?</window>)/g")[0];
 
 		String[] result = new String[2];
@@ -285,8 +291,6 @@ public class GraphFrame extends JFrame implements ActionListener
 		return result;
 	}
 
-
-	//add Listeners for all MenuItems
 	private void addListeners()
 	{
 		for (JMenu i : menubar.jMenus)
