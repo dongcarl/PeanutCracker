@@ -95,20 +95,25 @@ public class GraphPanel extends JPanel
 		double ymin = wind.getYmin();
 		double ymax = wind.getYmax();
 		System.out.println("ymin = "+ymin+" ymax = "+ymax);
+		//now find the total range covered by the window
 		sum = Math.abs(ymin)+Math.abs(ymax);
 		System.out.println("range  = "+sum);
+		//now find the ratio of the sum to the total size of the window 
 		rat1 = 500/sum;
 		System.out.println("rat1 y = "+rat1);
-		System.out.println("ymin = "+ymin);
+		//now multiply that ratio by ymax to get the new offset in pixels from the top
 		rat2 = Math.abs(rat1*ymax);
+		//set that wonderful offset
 		originX = (int) (rat2);
 		System.out.println("rat2 y = "+rat2);
+		//now adjust all of the y coordinates
 		for(int i = 0; i<rawY.size(); i++)
 		{
-			value = -(rawY.get(i)*ratio)+(originX);
-			if (rawY.get(0)>0)
+			//the new value is equal to the old value multiplied by the ratio to scale it up then offset
+			value = originX-(rawY.get(i)*(500/sum));;
+			if (rawY.get(0)<0)
 			{
-				value = (rawY.get(i)*ratio)+originX;
+				value = originX+(rawY.get(i)*(500/sum))-2*(rawY.get(rawY.size()/2)*(500/sum));
 			}
 			newYvals.add(value);
 		}
@@ -137,9 +142,9 @@ public class GraphPanel extends JPanel
 	public static void addToArray(ArrayList x, ArrayList y)
 	{
 		XArray.add(x);
-		System.out.println("added to XArray "+XArray);
+		//System.out.println("added to XArray "+XArray);
 		YArray.add(y);
-		System.out.println("added to YArray "+YArray);
+		//System.out.println("added to YArray "+YArray);
 	}
 
 

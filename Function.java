@@ -26,20 +26,24 @@ public class Function extends ArrayList<Element> implements Operator
 	{
 		//create a function from an arraylist of elements, default operation is none
 		this(func, Operators.NONE);
+		System.out.println("single input constructor reached");
 	}
 	public Function(ArrayList<Element> func, Operators op)
 	{
 		//create a function from an arraylist of elements, operation is set
+		System.out.println("two input constructor reached");
 		this.setFunction(func);
+		System.out.println("size of func = "+func.size());
 		operator = op;
 	}
 	public void setFunction(ArrayList<Element> func)
 	{
 		//set the function to be the array list of elements
+		//remove previous function
+		this.removeAll(this);
+		
 		for(Element e: func)
 		{
-			//remove previous function
-			this.removeAll(this);
 			//add in the pieces
 			this.add(e);
 		}
@@ -76,5 +80,14 @@ public class Function extends ArrayList<Element> implements Operator
 			sam = false;
 		}
 		return sam;
+	}
+	public String toString()
+	{
+		String str = "";
+		for(int i = 0; i<this.size(); i++)
+		{
+			str += " "+" element "+i;
+		}
+		return str;
 	}
 }

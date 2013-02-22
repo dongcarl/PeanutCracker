@@ -30,16 +30,20 @@ public class MasterMind implements Operator
 		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
 		//add a new monomial to the polynomial
-		polly.addElement(new Monomial(.5, 3));
-		//polly.addElement(new Monomial(10, 0));
+		//polly.addElement(new Monomial(2, 2));
+		jake.add(new Monomial(1, 3));
+		jake.add(new Monomial(1,0));
+		//jake.add(new Monomial(-1,1));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
 		//add the polynomial to the arraylist of elements
-		jake.add(polly);
+		//jake.add(polly);
+		System.out.println("Size of jake = "+jake.size());
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
+		System.out.println("Size of terry = "+terry.size());
 		//make a new window
-		Window witherspoon = new Window(-10, 10, .05, -10, 10, .05);
+		Window witherspoon = new Window(-5, 5, .05, -5, 5, .05);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 //		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 //		{
@@ -292,11 +296,15 @@ public class MasterMind implements Operator
 	{
 		//substitutes and evaluates the function for the given variable in place of "x"
 		Function mod = mode;
+		System.out.println(mod);
 		double sum = 0.0;
-		for (Element e:mod)
+		int count = 0;
+		for (Element e : mod)
 		{
+			count++;
 			Constant charlie = e.substitute(replace);
 			sum += charlie.getValue();
+			System.out.println("charlie sum #"+count+" = "+sum);
 			//should return a constant function with one element e
 		}
 		return sum;
