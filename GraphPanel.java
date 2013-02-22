@@ -91,10 +91,12 @@ public class GraphPanel extends JPanel
 			value = rawX.get(i)*ratio+(originY);
 			newXvals.add(value);
 		}
+		//begin calculations for y values adjusted for display
 		double ymin = wind.getYmin();
 		double ymax = wind.getYmax();
+		System.out.println("ymin = "+ymin+" ymax = "+ymax);
 		sum = Math.abs(ymin)+Math.abs(ymax);
-		System.out.println("sum "+sum);
+		System.out.println("range  = "+sum);
 		rat1 = 500/sum;
 		System.out.println("rat1 y = "+rat1);
 		System.out.println("ymin = "+ymin);
@@ -103,7 +105,11 @@ public class GraphPanel extends JPanel
 		System.out.println("rat2 y = "+rat2);
 		for(int i = 0; i<rawY.size(); i++)
 		{
-			value = (rawY.get(i)*ratio)+(originX);
+			value = -(rawY.get(i)*ratio)+(originX);
+			if (rawY.get(0)>0)
+			{
+				value = (rawY.get(i)*ratio)+originX;
+			}
 			newYvals.add(value);
 		}
 		addToArray(newXvals, newYvals);
