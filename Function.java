@@ -81,13 +81,4 @@ public class Function extends ArrayList<Element> implements Operator
 		}
 		return sam;
 	}
-	public String toString()
-	{
-		String str = "";
-		for(int i = 0; i<this.size(); i++)
-		{
-			str += " "+" element "+i;
-		}
-		return str;
-	}
 }
