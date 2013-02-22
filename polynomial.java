@@ -20,11 +20,12 @@ public class Polynomial extends Element
 		System.out.println("input poly");
 		System.out.println(alex.printME());
 		alex.sortElements();
+		//now we symbolically derive stuff
 		System.out.println("sorted poly");
 		System.out.println(alex.printME());
-//		alex = alex.derive();
-//		System.out.println("derived poly");
-//		System.out.println(alex.printME());
+		alex = alex.derive();
+		System.out.println("derived poly");
+		System.out.println(alex.printME());
 		alex = alex.integrate();
 		System.out.println("integrated poly");
 		System.out.println(alex.printME());
