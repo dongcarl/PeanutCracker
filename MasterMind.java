@@ -30,7 +30,7 @@ public class MasterMind implements Operator
 		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
 		//add a new monomial to the polynomial
-		polly.addElement(new Monomial(.5, 2));
+		polly.addElement(new Monomial(.5, 3));
 		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
