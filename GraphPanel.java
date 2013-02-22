@@ -57,15 +57,21 @@ public class GraphPanel extends JPanel
 
 	public static void configureForDisplay(ArrayList<Double> rawX, ArrayList<Double> rawY, Window wind)
 	{
-		double Xrange = wind.getXmax() - wind.getXmin();
+		double Xrange = Math.abs(wind.getXmax()) + Math.abs(wind.getXmin());
 		double Yrange = wind.getYmax() - wind.getYmin();
 		ArrayList<Double> newXvals = new ArrayList<Double>(rawX.size());
 		ArrayList<Double> newYvals = new ArrayList<Double>(rawY.size());
 		//for (Double d : rawX)
-		double offset = (500/(wind.getXmin()-wind.getXmax()))*Math.abs((wind.getXmin()));
-		System.out.println("offset = "+offset);
-		originY = (int) (offset);
-		
+		//  x     Math.abs(xmin)
+		// 500    Math.abs(xmin)+Math.abs(xmax)
+		double xmin = wind.getXmin();
+		double xmax = wind.getXmax();
+		double sum = Math.abs(xmin)+Math.abs(xmax);
+		double rat1 = 500/sum;
+		System.out.println("rat1 = "+rat1);
+		double rat2 = Math.abs(rat1*xmin);
+		System.out.println("rat2 = "+rat2);
+		originY = (int) (rat2);
 		double ratio = -(500/Xrange);
 		double value;
 		for(int i = 0; i<rawX.size(); i++)
@@ -73,7 +79,19 @@ public class GraphPanel extends JPanel
 			value = rawX.get(i)*ratio+(originY);
 			newXvals.add(value);
 		}
-		addToArray(newXvals, rawY);
+		double ymin = wind.getYmin();
+		double ymax = wind.getYmax();
+		sum = Math.abs(ymin)+Math.abs(ymax);
+		rat1 = 500/sum;
+		System.out.println("rat1 y = "+rat1);
+		rat2 = Math.abs(rat2*ymin);
+		System.out.println("rat2 y = "+rat2);
+		for(int i = 0; i<rawY.size(); i++)
+		{
+			value = rawY.get(i)*ratio+(250+originX);
+			newYvals.add(value);
+		}
+		addToArray(newXvals, newYvals);
 	}
 	
 	public static void setWindow(Window w)

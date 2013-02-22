@@ -28,7 +28,7 @@ public class MasterMind implements Operator
 		//make a polynomial to add to the above list
 		Polynomial polly = new Polynomial();
 		//add a new monomial to the polynomial
-		polly.addElement(new Monomial(1, 2));
+		polly.addElement(new Monomial(1, 3));
 		//polly.addElement(new Monomial(10, 0));
 		//polly.addElement(new Monomial(3, 1));
 		//polly.addElement(new Monomial(.5 , (int) .5));
@@ -37,7 +37,7 @@ public class MasterMind implements Operator
 		//add the arraylist of elements to the function
 		Function terry = new Function(jake);
 		//make a new window
-		Window witherspoon = new Window(-5, 10, .1, -10, 10, .1);
+		Window witherspoon = new Window(-5, 5, .05, -5, 5, .05);
 		MasterMind mindy = new MasterMind(terry, 0, witherspoon);
 		for (Double d : mindy.getZeroes(terry, 0, witherspoon))
 		{
@@ -50,8 +50,6 @@ public class MasterMind implements Operator
 		//The constructor takes in a ControlCenter to pass messages to
 		ArrayList<Double> x = processXPoints(func, walrus);
 		ArrayList<Double> y = processFunction(func, operation, walrus);
-		Window widow = new Window(-10,10, .1, -10, 10, .1);
-		widow = optimizeWindow(x,y, widow);
 		System.out.println("coordinate points");
 		for (int i = 0; i <x.size() && i < y.size(); i++)
 		{
@@ -59,7 +57,7 @@ public class MasterMind implements Operator
 		}
 		while (x.size()>y.size()) x.remove(x.size()-1);
 		while (y.size()>x.size()) y.remove(y.size()-1);
-		mailToGraph(x, y, widow);
+		mailToGraph(x, y, walrus);
 	}
 	public static ArrayList<Double> getZeroes(Function func, int operation, Window walrus)
 	{
